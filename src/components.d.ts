@@ -8,6 +8,8 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface BarcodeFormats {
     }
+    interface BinarizationModes {
+    }
 }
 declare global {
     interface HTMLBarcodeFormatsElement extends Components.BarcodeFormats, HTMLStencilElement {
@@ -16,15 +18,25 @@ declare global {
         prototype: HTMLBarcodeFormatsElement;
         new (): HTMLBarcodeFormatsElement;
     };
+    interface HTMLBinarizationModesElement extends Components.BinarizationModes, HTMLStencilElement {
+    }
+    var HTMLBinarizationModesElement: {
+        prototype: HTMLBinarizationModesElement;
+        new (): HTMLBinarizationModesElement;
+    };
     interface HTMLElementTagNameMap {
         "barcode-formats": HTMLBarcodeFormatsElement;
+        "binarization-modes": HTMLBinarizationModesElement;
     }
 }
 declare namespace LocalJSX {
     interface BarcodeFormats {
     }
+    interface BinarizationModes {
+    }
     interface IntrinsicElements {
         "barcode-formats": BarcodeFormats;
+        "binarization-modes": BinarizationModes;
     }
 }
 export { LocalJSX as JSX };
@@ -32,6 +44,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "barcode-formats": LocalJSX.BarcodeFormats & JSXBase.HTMLAttributes<HTMLBarcodeFormatsElement>;
+            "binarization-modes": LocalJSX.BinarizationModes & JSXBase.HTMLAttributes<HTMLBinarizationModesElement>;
         }
     }
 }

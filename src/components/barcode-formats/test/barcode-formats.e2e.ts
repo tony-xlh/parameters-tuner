@@ -1,11 +1,11 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('parameters-tuner', () => {
+describe('barcode-formats', () => {
   it('renders', async () => {
     const page = await newE2EPage();
-    await page.setContent('<parameters-tuner></parameters-tuner>');
+    await page.setContent('<barcode-formats></barcode-formats>');
 
-    const element = await page.find('parameters-tuner');
+    const element = await page.find('barcode-formats');
     expect(element).toHaveClass('hydrated');
   });
 });

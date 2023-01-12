@@ -2,8 +2,8 @@ import { Component, Host, h, State } from '@stencil/core';
 import { barcodeFormatOption, Enum1DBarcodeFormat, Enum2DBarcodeFormat } from './definitions';
 
 @Component({
-  tag: 'parameters-tuner',
-  styleUrl: 'parameters-tuner.css',
+  tag: 'barcode-formats',
+  styleUrl: 'barcode-formats.css',
   shadow: true,
 })
 

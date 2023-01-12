@@ -6,32 +6,32 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface ParametersTuner {
+    interface BarcodeFormats {
     }
 }
 declare global {
-    interface HTMLParametersTunerElement extends Components.ParametersTuner, HTMLStencilElement {
+    interface HTMLBarcodeFormatsElement extends Components.BarcodeFormats, HTMLStencilElement {
     }
-    var HTMLParametersTunerElement: {
-        prototype: HTMLParametersTunerElement;
-        new (): HTMLParametersTunerElement;
+    var HTMLBarcodeFormatsElement: {
+        prototype: HTMLBarcodeFormatsElement;
+        new (): HTMLBarcodeFormatsElement;
     };
     interface HTMLElementTagNameMap {
-        "parameters-tuner": HTMLParametersTunerElement;
+        "barcode-formats": HTMLBarcodeFormatsElement;
     }
 }
 declare namespace LocalJSX {
-    interface ParametersTuner {
+    interface BarcodeFormats {
     }
     interface IntrinsicElements {
-        "parameters-tuner": ParametersTuner;
+        "barcode-formats": BarcodeFormats;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "parameters-tuner": LocalJSX.ParametersTuner & JSXBase.HTMLAttributes<HTMLParametersTunerElement>;
+            "barcode-formats": LocalJSX.BarcodeFormats & JSXBase.HTMLAttributes<HTMLBarcodeFormatsElement>;
         }
     }
 }

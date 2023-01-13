@@ -1,10 +1,10 @@
 import { newSpecPage } from '@stencil/core/testing';
-import { ParametersTuner } from '../barcode-formats';
+import { BarcodeFormats } from '../barcode-formats';
 
 describe('barcode-formats', () => {
   it('renders', async () => {
     const page = await newSpecPage({
-      components: [ParametersTuner],
+      components: [BarcodeFormats],
       html: `<barcode-formats></barcode-formats>`,
     });
     expect(page.root).toEqualHtml(`

@@ -73,12 +73,10 @@ export class BarcodeFormats {
   async loadSettings(settings:any) 
   {
     let enabledFormats:string[] = settings.BarcodeFormatIds;
-    console.log(enabledFormats);
     for (let i = 0; i < this.formatsArray.length; i++) {
       const formats = this.formatsArray[i];
       for (let j = 0; j < formats.length; j++) {
-        const barcodeFormat = formats[j];
-        console.log(barcodeFormat);        
+        const barcodeFormat = formats[j];      
         if (enabledFormats.indexOf(barcodeFormat.name) != -1) {
           barcodeFormat.enabled = true;
         }else{

@@ -7,86 +7,182 @@
 
     <script type="module" src="/build/parameters-tuner.esm.js"></script>
     <script nomodule src="/build/parameters-tuner.js"></script>
+    <style>
+      /* Style the tab */
+      .tabs {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+        position: absolute;
+        width: 30%;
+        height: 100%;
+        top: 0;
+        left: 0;
+      }
+
+      /* Style the buttons that are used to open the tab content */
+      .tab-button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+      }
+
+      .tab-buttons {
+        height:46px;
+      }
+
+      /* Change background color of buttons on hover */
+      .tab-button:hover {
+        background-color: #ddd;
+      }
+
+      /* Create an active/current tablink class */
+      .tab-button.active {
+        background-color: #ccc;
+      }
+
+      /* Style the tab content */
+      .tab-content {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+        height: calc(100% - 50px);
+        overflow: auto;
+      }
+
+      .main {
+        position: fixed;
+        top:0;
+        left:0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .controls {
+        position: absolute;
+        width: 70%;
+        height: 100%;
+        top: 0;
+        left: 30%;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+      }
+
+      .controls-wrapper {
+        margin: 10px;
+      }
+
+      textarea {
+        width: calc(100% - 10px);
+        height: 250px;
+      }
+    </style>
   </head>
   <body>
-    <barcode-formats>
-    </barcode-formats>
-    <binarization-modes>
-      <p>Inner component</p>
-    </binarization-modes>
-    <button class="outputBtn">
-      Output
-    </button>
-    <textarea>
-{
-  "ImageParameter" : {
-    "BinarizationModes": [
-      {
-        "BlockSizeX": 0,
-        "BlockSizeY": 0,
-        "EnableFillBinaryVacancy": 1,
-        "ImagePreprocessingModesIndex": -1,
-        "LibraryFileName": "",
-        "LibraryParameters": "",
-        "Mode": "BM_LOCAL_BLOCK",
-        "ThresholdCompensation": 10
-      }
-    ],
-    "LocalizationModes": [
-      {
-        "LibraryFileName": "",
-        "LibraryParameters": "",
-        "Mode": "LM_CONNECTED_BLOCKS"
+    <div class="main">
+      <div class="tabs">
+        <div class="tab-buttons">
+          <div class="tab-button active" onclick="switchTab(event,0)">
+            Barcode Formats
+          </div>
+          <div class="tab-button" onclick="switchTab(event,1)">
+            Binarization Modes
+          </div>
+        </div>
+        <div class="tab-content" style="display:block">
+          <barcode-formats>
+          </barcode-formats>
+        </div>
+        <div class="tab-content">
+          <binarization-modes>
+          </binarization-modes>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="controls-wrapper">
+          <div>
+            <button class="outputBtn">
+              Output
+            </button>
+          </div>
+          <textarea>
+    {
+      "ImageParameter" : {
+        "BinarizationModes": [
+          {
+            "BlockSizeX": 0,
+            "BlockSizeY": 0,
+            "EnableFillBinaryVacancy": 1,
+            "ImagePreprocessingModesIndex": -1,
+            "LibraryFileName": "",
+            "LibraryParameters": "",
+            "Mode": "BM_LOCAL_BLOCK",
+            "ThresholdCompensation": 10
+          }
+        ],
+        "LocalizationModes": [
+          {
+            "LibraryFileName": "",
+            "LibraryParameters": "",
+            "Mode": "LM_CONNECTED_BLOCKS"
+          },
+          {
+            "IsOneDStacked": 0,
+            "LibraryFileName": "",
+            "LibraryParameters": "",
+            "Mode": "LM_SCAN_DIRECTLY",
+            "ScanDirection": 0,
+            "ScanStride": 0
+          },
+          {
+            "LibraryFileName": "",
+            "LibraryParameters": "",
+            "Mode": "LM_STATISTICS"
+          },
+          {
+            "LibraryFileName": "",
+            "LibraryParameters": "",
+            "Mode": "LM_LINES"
+          }
+        ],
+        "BarcodeFormatIds": [
+          "BF_QR_CODE",
+          "BF_MICRO_QR"
+        ],
+        "ExpectedBarcodesCount": 999,
+        "ImagePreprocessingModes": [
+          {
+            "LibraryFileName": "",
+            "LibraryParameters": "",
+            "Mode": "IPM_GENERAL"
+          },
+          {
+            "LibraryFileName": "",
+            "LibraryParameters": "",
+            "Mode": "IPM_GRAY_EQUALIZE",
+            "Sensitivity": 5
+          },
+          {
+            "LibraryFileName": "",
+            "LibraryParameters": "",
+            "Mode": "IPM_GRAY_SMOOTH",
+            "SmoothBlockSizeX": 3,
+            "SmoothBlockSizeY": 3
+          }
+        ],
+        "Name": "Settings"
       },
-      {
-        "IsOneDStacked": 0,
-        "LibraryFileName": "",
-        "LibraryParameters": "",
-        "Mode": "LM_SCAN_DIRECTLY",
-        "ScanDirection": 0,
-        "ScanStride": 0
-      },
-      {
-        "LibraryFileName": "",
-        "LibraryParameters": "",
-        "Mode": "LM_STATISTICS"
-      },
-      {
-        "LibraryFileName": "",
-        "LibraryParameters": "",
-        "Mode": "LM_LINES"
-      }
-    ],
-    "BarcodeFormatIds": [
-      "BF_QR_CODE",
-      "BF_MICRO_QR"
-    ],
-    "ExpectedBarcodesCount": 999,
-    "ImagePreprocessingModes": [
-      {
-        "LibraryFileName": "",
-        "LibraryParameters": "",
-        "Mode": "IPM_GENERAL"
-      },
-      {
-        "LibraryFileName": "",
-        "LibraryParameters": "",
-        "Mode": "IPM_GRAY_EQUALIZE",
-        "Sensitivity": 5
-      },
-      {
-        "LibraryFileName": "",
-        "LibraryParameters": "",
-        "Mode": "IPM_GRAY_SMOOTH",
-        "SmoothBlockSizeX": 3,
-        "SmoothBlockSizeY": 3
-      }
-    ],
-    "Name": "Settings"
-  },
-  "Version" : "3.0"
-}
-    </textarea>
+      "Version" : "3.0"
+    }
+          </textarea>
+        </div>
+      </div>
+    </div>
     <script>
       window.onload = function(){
         let textarea = document.querySelector("textarea");
@@ -96,15 +192,38 @@
         }
         let settings = JSON.parse(template);
         const barcodeFormats = document.querySelector("barcode-formats");
+        const binarizationModes = document.querySelector("binarization-modes");
         barcodeFormats.loadSettings(settings.ImageParameter);
+        binarizationModes.loadSettings(settings.ImageParameter);
         document.getElementsByClassName("outputBtn")[0].addEventListener('click', async () => {
-          let output = await barcodeFormats.outputSettings();
-          settings.ImageParameter.BarcodeFormatIds = output.BarcodeFormatIds;
-          console.log(output);
+          let formatOutput = await barcodeFormats.outputSettings();
+          let binarizationModesOutput = await binarizationModes.outputSettings();
+          settings.ImageParameter.BarcodeFormatIds = formatOutput.BarcodeFormatIds;
+          settings.ImageParameter.BinarizationModes = binarizationModesOutput.BinarizationModes;
           textarea.value = JSON.stringify(settings, undefined, 2);
         });
       }
-    
+
+      function switchTab(evt, index) {
+        // Declare all variables
+        console.log(evt);
+        var i, tabContent, tabButtons;
+        // Get all elements with class="tab-content" and hide them
+        tabContent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabContent.length; i++) {
+          tabContent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tabButtons = document.getElementsByClassName("tab-button");
+        for (i = 0; i < tabButtons.length; i++) {
+          tabButtons[i].className = tabButtons[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        tabContent[index].style.display = "block";
+        evt.currentTarget.className += " active";
+      }
     </script>
   </body>
 </html>

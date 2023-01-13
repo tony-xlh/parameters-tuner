@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { BinarizationMode } from "./components/binarization-modes/definitions";
 export namespace Components {
     interface BarcodeFormats {
         /**
@@ -17,6 +18,14 @@ export namespace Components {
         "outputSettings": () => Promise<any>;
     }
     interface BinarizationModes {
+        /**
+          * Update BinarizationModes with an object like the following: {   "BinarizationModes": [      {           "Mode": "BM_LOCAL_BLOCK",            "BlockSizeX": 5,           "BlockSizeY": 5       },       {           "Mode": "BM_THRESHOLD",            "BinarizationThreshold": 125       }   ] }
+         */
+        "loadSettings": (settings: any) => Promise<void>;
+        /**
+          * Output BinarizationModes to an object like the following: {   "BinarizationModes": [      {           "Mode": "BM_LOCAL_BLOCK",            "BlockSizeX": 5,           "BlockSizeY": 5       },       {           "Mode": "BM_THRESHOLD",            "BinarizationThreshold": 125       }   ] }
+         */
+        "outputSettings": () => Promise<{ BinarizationModes: BinarizationMode[]; }>;
     }
 }
 declare global {

@@ -87,6 +87,10 @@
         width: calc(50% - 10px);
         height: calc(100% - 50px);
       }
+
+      .options {
+        padding: 10px;
+      }
     </style>
   </head>
   <body>
@@ -108,8 +112,11 @@
           </barcode-formats>
         </div>
         <div class="tab-content">
-          <binarization-modes>
-          </binarization-modes>
+          <div>BinarizationModes:</div>
+          <div class="options">
+            <binarization-modes>
+            </binarization-modes>
+          </div>
         </div>
         <div class="tab-content">
           <p>General</p>
@@ -126,74 +133,74 @@
             </button>
           </div>
           <textarea>
-    {
-      "ImageParameter" : {
-        "BinarizationModes": [
-          {
-            "BlockSizeX": 0,
-            "BlockSizeY": 0,
-            "EnableFillBinaryVacancy": 1,
-            "ImagePreprocessingModesIndex": -1,
-            "LibraryFileName": "",
-            "LibraryParameters": "",
-            "Mode": "BM_LOCAL_BLOCK",
-            "ThresholdCompensation": 10
-          }
-        ],
-        "LocalizationModes": [
-          {
-            "LibraryFileName": "",
-            "LibraryParameters": "",
-            "Mode": "LM_CONNECTED_BLOCKS"
-          },
-          {
-            "IsOneDStacked": 0,
-            "LibraryFileName": "",
-            "LibraryParameters": "",
-            "Mode": "LM_SCAN_DIRECTLY",
-            "ScanDirection": 0,
-            "ScanStride": 0
-          },
-          {
-            "LibraryFileName": "",
-            "LibraryParameters": "",
-            "Mode": "LM_STATISTICS"
-          },
-          {
-            "LibraryFileName": "",
-            "LibraryParameters": "",
-            "Mode": "LM_LINES"
-          }
-        ],
-        "BarcodeFormatIds": [
-          "BF_QR_CODE",
-          "BF_MICRO_QR"
-        ],
-        "ExpectedBarcodesCount": 999,
-        "ImagePreprocessingModes": [
-          {
-            "LibraryFileName": "",
-            "LibraryParameters": "",
-            "Mode": "IPM_GENERAL"
-          },
-          {
-            "LibraryFileName": "",
-            "LibraryParameters": "",
-            "Mode": "IPM_GRAY_EQUALIZE",
-            "Sensitivity": 5
-          },
-          {
-            "LibraryFileName": "",
-            "LibraryParameters": "",
-            "Mode": "IPM_GRAY_SMOOTH",
-            "SmoothBlockSizeX": 3,
-            "SmoothBlockSizeY": 3
-          }
-        ],
-        "Name": "Settings"
+{
+  "ImageParameter" : {
+    "BinarizationModes": [
+      {
+        "BlockSizeX": 0,
+        "BlockSizeY": 0,
+        "EnableFillBinaryVacancy": 1,
+        "ImagePreprocessingModesIndex": -1,
+        "LibraryFileName": "",
+        "LibraryParameters": "",
+        "Mode": "BM_LOCAL_BLOCK",
+        "ThresholdCompensation": 10
+      }
+    ],
+    "LocalizationModes": [
+      {
+        "LibraryFileName": "",
+        "LibraryParameters": "",
+        "Mode": "LM_CONNECTED_BLOCKS"
       },
-      "Version" : "3.0"
-    }
+      {
+        "IsOneDStacked": 0,
+        "LibraryFileName": "",
+        "LibraryParameters": "",
+        "Mode": "LM_SCAN_DIRECTLY",
+        "ScanDirection": 0,
+        "ScanStride": 0
+      },
+      {
+        "LibraryFileName": "",
+        "LibraryParameters": "",
+        "Mode": "LM_STATISTICS"
+      },
+      {
+        "LibraryFileName": "",
+        "LibraryParameters": "",
+        "Mode": "LM_LINES"
+      }
+    ],
+    "BarcodeFormatIds": [
+      "BF_QR_CODE",
+      "BF_MICRO_QR"
+    ],
+    "ExpectedBarcodesCount": 999,
+    "ImagePreprocessingModes": [
+      {
+        "LibraryFileName": "",
+        "LibraryParameters": "",
+        "Mode": "IPM_GENERAL"
+      },
+      {
+        "LibraryFileName": "",
+        "LibraryParameters": "",
+        "Mode": "IPM_GRAY_EQUALIZE",
+        "Sensitivity": 5
+      },
+      {
+        "LibraryFileName": "",
+        "LibraryParameters": "",
+        "Mode": "IPM_GRAY_SMOOTH",
+        "SmoothBlockSizeX": 3,
+        "SmoothBlockSizeY": 3
+      }
+    ],
+    "Name": "Settings"
+  },
+  "Version" : "3.0"
+}
           </textarea>
         </div>
       </div>

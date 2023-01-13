@@ -1,7 +1,7 @@
 export interface BinarizationMode {
   BlockSizeX?: number,
   BlockSizeY?: number,
-  EnableFillBinaryVacancy?: number,
+  EnableFillBinaryVacancy?: 0|1,
   ThresholdCompensation?: number,
   BinarizationThreshold?: number,
   ImagePreprocessingModesIndex?: number,

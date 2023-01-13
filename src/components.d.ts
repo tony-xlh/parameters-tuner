@@ -7,6 +7,14 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface BarcodeFormats {
+        /**
+          * Update checked barcode formats with an object like the following: {   "BarcodeFormatIds": [     "BF_ALL"   ] }
+         */
+        "loadSettings": (settings: any) => Promise<void>;
+        /**
+          * Output checked barcode formats to an object like the following: {   "BarcodeFormatIds": [     "BF_ALL"   ] }
+         */
+        "outputSettings": () => Promise<any>;
     }
     interface BinarizationModes {
     }

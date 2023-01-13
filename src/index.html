@@ -11,5 +11,88 @@
   <body>
     <barcode-formats>
     </barcode-formats>
+    <binarization-modes>
+      <p>Inner component</p>
+    </binarization-modes>
+    <button class="outputBtn">
+      Output
+    </button>
+    <textarea>
+{
+  "ImageParameter" : {
+    "LocalizationModes": [
+      {
+        "LibraryFileName": "",
+        "LibraryParameters": "",
+        "Mode": "LM_CONNECTED_BLOCKS"
+      },
+      {
+        "IsOneDStacked": 0,
+        "LibraryFileName": "",
+        "LibraryParameters": "",
+        "Mode": "LM_SCAN_DIRECTLY",
+        "ScanDirection": 0,
+        "ScanStride": 0
+      },
+      {
+        "LibraryFileName": "",
+        "LibraryParameters": "",
+        "Mode": "LM_STATISTICS"
+      },
+      {
+        "LibraryFileName": "",
+        "LibraryParameters": "",
+        "Mode": "LM_LINES"
+      }
+    ],
+    "BarcodeFormatIds": [
+      "BF_QR_CODE",
+      "BF_MICRO_QR"
+    ],
+    "ExpectedBarcodesCount": 999,
+    "ImagePreprocessingModes": [
+      {
+        "LibraryFileName": "",
+        "LibraryParameters": "",
+        "Mode": "IPM_GENERAL"
+      },
+      {
+        "LibraryFileName": "",
+        "LibraryParameters": "",
+        "Mode": "IPM_GRAY_EQUALIZE",
+        "Sensitivity": 5
+      },
+      {
+        "LibraryFileName": "",
+        "LibraryParameters": "",
+        "Mode": "IPM_GRAY_SMOOTH",
+        "SmoothBlockSizeX": 3,
+        "SmoothBlockSizeY": 3
+      }
+    ],
+    "Name": "Settings"
+  },
+  "Version" : "3.0"
+}
+    </textarea>
+    <script>
+      window.onload = function(){
+        let textarea = document.querySelector("textarea");
+        let template = textarea.value;
+        if (!template) {
+          template = "{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_QR_CODE\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}";
+        }
+        let settings = JSON.parse(template);
+        const barcodeFormats = document.querySelector("barcode-formats");
+        barcodeFormats.loadSettings(settings.ImageParameter);
+        document.getElementsByClassName("outputBtn")[0].addEventListener('click', async () => {
+          let output = await barcodeFormats.outputSettings();
+          settings.ImageParameter.BarcodeFormatIds = output.BarcodeFormatIds;
+          console.log(output);
+          textarea.value = JSON.stringify(settings, undefined, 2);
+        });
+      }
+    
+    </script>
   </body>
 </html>

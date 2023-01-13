@@ -29,6 +29,12 @@ export enum Enum1DBarcodeFormat {
   BF_MSI_CODE = 1048576,
 }
 
+export enum EnumBarcodeFormatCollection {
+  BF_ALL = 4265607167,
+  BF_ONED = 3147775,
+  BF_NULL = 0,
+}
+
 export enum EnumBarcodeFormat {
   BF_ALL = 4265607167,
   BF_ONED = 3147775,

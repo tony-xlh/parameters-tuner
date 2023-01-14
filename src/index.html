@@ -117,6 +117,11 @@
             <binarization-modes>
             </binarization-modes>
           </div>
+          <div>LocalizationModes:</div>
+          <div class="options">
+            <localization-modes>
+            </localization-modes>
+          </div>
         </div>
         <div class="tab-content">
           <p>General</p>
@@ -225,8 +230,10 @@
         let settings = JSON.parse(template);
         const barcodeFormats = document.querySelector("barcode-formats");
         const binarizationModes = document.querySelector("binarization-modes");
+        const localizationModes = document.querySelector("localization-modes");
         barcodeFormats.loadSettings(settings.ImageParameter);
         binarizationModes.loadSettings(settings.ImageParameter);
+        localizationModes.loadSettings(settings.ImageParameter);
       }
 
       async function outputTemplate(){
@@ -238,10 +245,13 @@
         let settings = JSON.parse(template);
         const barcodeFormats = document.querySelector("barcode-formats");
         const binarizationModes = document.querySelector("binarization-modes");
+        const localizationModes = document.querySelector("localization-modes");
         let formatOutput = await barcodeFormats.outputSettings();
         let binarizationModesOutput = await binarizationModes.outputSettings();
+        let localizationModesOutput = await localizationModes.outputSettings();
         settings.ImageParameter.BarcodeFormatIds = formatOutput.BarcodeFormatIds;
         settings.ImageParameter.BinarizationModes = binarizationModesOutput.BinarizationModes;
+        settings.ImageParameter.LocalizationModes = localizationModesOutput.LocalizationModes;
         textarea.value = JSON.stringify(settings, undefined, 2);
       }
 

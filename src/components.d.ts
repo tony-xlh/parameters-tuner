@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { BinarizationMode } from "./components/binarization-modes/definitions";
+import { LocalizationMode } from "./components/localization-modes/definitions";
 export namespace Components {
     interface BarcodeFormats {
         /**
@@ -27,6 +28,16 @@ export namespace Components {
          */
         "outputSettings": () => Promise<{ BinarizationModes: BinarizationMode[]; }>;
     }
+    interface LocalizationModes {
+        /**
+          * Update BinarizationModes with an object like the following: {   "LocalizationModes": [       {           "Mode": "LM_CONNECTED_BLOCKS",        }   ] }
+         */
+        "loadSettings": (settings: any) => Promise<void>;
+        /**
+          * Output LocalizationModes to an object like the following: {   "LocalizationModes": [       {           "Mode": "LM_CONNECTED_BLOCKS",        }   ] }
+         */
+        "outputSettings": () => Promise<{ LocalizationModes: LocalizationMode[]; }>;
+    }
 }
 declare global {
     interface HTMLBarcodeFormatsElement extends Components.BarcodeFormats, HTMLStencilElement {
@@ -41,9 +52,16 @@ declare global {
         prototype: HTMLBinarizationModesElement;
         new (): HTMLBinarizationModesElement;
     };
+    interface HTMLLocalizationModesElement extends Components.LocalizationModes, HTMLStencilElement {
+    }
+    var HTMLLocalizationModesElement: {
+        prototype: HTMLLocalizationModesElement;
+        new (): HTMLLocalizationModesElement;
+    };
     interface HTMLElementTagNameMap {
         "barcode-formats": HTMLBarcodeFormatsElement;
         "binarization-modes": HTMLBinarizationModesElement;
+        "localization-modes": HTMLLocalizationModesElement;
     }
 }
 declare namespace LocalJSX {
@@ -51,9 +69,12 @@ declare namespace LocalJSX {
     }
     interface BinarizationModes {
     }
+    interface LocalizationModes {
+    }
     interface IntrinsicElements {
         "barcode-formats": BarcodeFormats;
         "binarization-modes": BinarizationModes;
+        "localization-modes": LocalizationModes;
     }
 }
 export { LocalJSX as JSX };
@@ -62,6 +83,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "barcode-formats": LocalJSX.BarcodeFormats & JSXBase.HTMLAttributes<HTMLBarcodeFormatsElement>;
             "binarization-modes": LocalJSX.BinarizationModes & JSXBase.HTMLAttributes<HTMLBinarizationModesElement>;
+            "localization-modes": LocalJSX.LocalizationModes & JSXBase.HTMLAttributes<HTMLLocalizationModesElement>;
         }
     }
 }

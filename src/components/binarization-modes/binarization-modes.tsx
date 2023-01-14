@@ -104,9 +104,9 @@ export class BinarizationModes {
     return (
       <div>
         <select onInput={(event) => this.handleSelect(event,mode)}>
-          <option value="BM_SKIP" selected={mode.Mode === "BM_SKIP"}>Skip</option>
-          <option value="BM_LOCAL_BLOCK" selected={mode.Mode === "BM_LOCAL_BLOCK"}>LocalBlock</option>
-          <option value="BM_THRESHOLD" selected={mode.Mode === "BM_THRESHOLD"}>Threshold</option>
+          <option value="BM_SKIP" selected={mode.Mode === "BM_SKIP"}>SKIP</option>
+          <option value="BM_LOCAL_BLOCK" selected={mode.Mode === "BM_LOCAL_BLOCK"}>LOCALBLOCK</option>
+          <option value="BM_THRESHOLD" selected={mode.Mode === "BM_THRESHOLD"}>THRESHOLD</option>
         </select>
         {this.renderOptions(mode)}
       </div>

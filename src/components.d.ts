@@ -28,6 +28,8 @@ export namespace Components {
          */
         "outputSettings": () => Promise<{ BinarizationModes: BinarizationMode[]; }>;
     }
+    interface ImageprocessingParameters {
+    }
     interface LocalizationModes {
         /**
           * Update BinarizationModes with an object like the following: {   "LocalizationModes": [       {           "Mode": "LM_CONNECTED_BLOCKS",        }   ] }
@@ -52,6 +54,12 @@ declare global {
         prototype: HTMLBinarizationModesElement;
         new (): HTMLBinarizationModesElement;
     };
+    interface HTMLImageprocessingParametersElement extends Components.ImageprocessingParameters, HTMLStencilElement {
+    }
+    var HTMLImageprocessingParametersElement: {
+        prototype: HTMLImageprocessingParametersElement;
+        new (): HTMLImageprocessingParametersElement;
+    };
     interface HTMLLocalizationModesElement extends Components.LocalizationModes, HTMLStencilElement {
     }
     var HTMLLocalizationModesElement: {
@@ -61,6 +69,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "barcode-formats": HTMLBarcodeFormatsElement;
         "binarization-modes": HTMLBinarizationModesElement;
+        "imageprocessing-parameters": HTMLImageprocessingParametersElement;
         "localization-modes": HTMLLocalizationModesElement;
     }
 }
@@ -69,11 +78,14 @@ declare namespace LocalJSX {
     }
     interface BinarizationModes {
     }
+    interface ImageprocessingParameters {
+    }
     interface LocalizationModes {
     }
     interface IntrinsicElements {
         "barcode-formats": BarcodeFormats;
         "binarization-modes": BinarizationModes;
+        "imageprocessing-parameters": ImageprocessingParameters;
         "localization-modes": LocalizationModes;
     }
 }
@@ -83,6 +95,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "barcode-formats": LocalJSX.BarcodeFormats & JSXBase.HTMLAttributes<HTMLBarcodeFormatsElement>;
             "binarization-modes": LocalJSX.BinarizationModes & JSXBase.HTMLAttributes<HTMLBinarizationModesElement>;
+            "imageprocessing-parameters": LocalJSX.ImageprocessingParameters & JSXBase.HTMLAttributes<HTMLImageprocessingParametersElement>;
             "localization-modes": LocalJSX.LocalizationModes & JSXBase.HTMLAttributes<HTMLLocalizationModesElement>;
         }
     }

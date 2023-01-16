@@ -24,8 +24,9 @@ export class LocalizationModes {
   @Method()
   async loadSettings(settings:any) {
     this.modes = settings.LocalizationModes;
-    if (this.modes.length < 4) {
-      for (let index = 0; index < 4 - this.modes.length; index++) {
+    const length = this.modes.length;
+    if (length < 8) {
+      for (let index = 0; index < 8 - length; index++) {
         let skip:LocalizationMode = {Mode:"LM_SKIP"}
         this.modes.push(skip);
       }

@@ -132,8 +132,9 @@ export class BinarizationModes {
   @Method()
   async loadSettings(settings:any) {
     this.modes = settings.BinarizationModes;
-    if (this.modes.length < 4) {
-      for (let index = 0; index < 4 - this.modes.length; index++) {
+    const length = this.modes.length;
+    if (length < 4) {
+      for (let index = 0; index < 4 - length; index++) {
         let skip:BinarizationMode = {Mode:"BM_SKIP"}
         this.modes.push(skip);
       }

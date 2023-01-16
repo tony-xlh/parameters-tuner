@@ -1,0 +1,62 @@
+{
+  "ImageProcessingParameters":[
+    {
+      "name":"BinarizationModes",
+      "length":4,
+      "modes":[
+          {"name":"BM_SKIP","args":[]},
+          {"name":"BM_THRESHOLD","args":[
+            {
+              "name":"BinarizationThreshold",
+              "type":"number",
+              "max":255,
+              "min":-1,
+              "default": -1
+            },
+            {
+              "name":"ImagePreprocessingModesIndex",
+              "type":"number",
+              "max":3,
+              "min":-1,
+              "default": -1
+            }
+          ]},
+          {"name":"BM_LOCALBLOCK","args":[
+            {
+              "name":"BlockSizeX",
+              "type":"number",
+              "max":1000,
+              "min":0,
+              "default": 0
+            },
+            {
+              "name":"BlockSizeY",
+              "type":"number",
+              "max":1000,
+              "min":0,
+              "default": 0
+            },
+            {
+              "name":"EnableFillBinaryVacancy",
+              "type":"boolean",
+              "default":1
+            },
+            {
+              "name":"ThresholdCompensation",
+              "type":"number",
+              "max":255,
+              "min":-255,
+              "default": 10
+            },
+            {
+              "name":"ImagePreprocessingModesIndex",
+              "type":"number",
+              "max":3,
+              "min":-1,
+              "default": -1
+            }
+          ]}
+      ]
+    }
+  ]
+}

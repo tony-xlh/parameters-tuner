@@ -158,8 +158,19 @@ export class BinarizationModes {
    */
   @Method()
   async outputSettings():Promise<{BinarizationModes:BinarizationMode[]}> {
-    let settings = {BinarizationModes:this.modes};
+    let settings = {BinarizationModes:this.modesWithSkipRemoved()};
     return settings;
+  }
+
+  modesWithSkipRemoved(){
+    let newModes = [];
+    for (let index = 0; index < this.modes.length; index++) {
+      const mode = this.modes[index];
+      if (mode.Mode != "BM_SKIP") {
+        newModes.push(mode);
+      }
+    }
+    return newModes;
   }
 
   render() {

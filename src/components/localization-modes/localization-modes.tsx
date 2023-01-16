@@ -44,12 +44,29 @@ export class LocalizationModes {
    */
   @Method()
   async outputSettings():Promise<{LocalizationModes:LocalizationMode[]}> {
-    let settings = {LocalizationModes:this.modes};
+    let settings = {LocalizationModes:this.modesWithSkipRemoved()};
     return settings;
+  }
+
+  modesWithSkipRemoved(){
+    let newModes = [];
+    for (let index = 0; index < this.modes.length; index++) {
+      const mode = this.modes[index];
+      if (mode.Mode != "LM_SKIP") {
+        newModes.push(mode);
+      }
+    }
+    return newModes;
   }
   
   handleSelect(event:any,mode:LocalizationMode){
     mode.Mode = event.target.value;
+    if (mode.Mode != "LM_SCAN_DIRECTLY" && mode.Mode != "LM_ONED_FAST_SCAN") {
+      delete mode.IsOneDStacked;
+      delete mode.ScanDirection;
+      delete mode.ScanStride;
+    }
+    
     this.rerender = !this.rerender;
   }
 

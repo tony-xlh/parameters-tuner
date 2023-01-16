@@ -89,7 +89,7 @@ export class LocalizationModes {
     if (mode.Mode != "LM_SKIP") {
       if (mode.Mode === "LM_SCAN_DIRECTLY") {
         return (
-          <div class="localization-options">
+          <div class="options">
             {this.renderSharedOneOptions(mode)}
             <div>
               <label>
@@ -101,7 +101,7 @@ export class LocalizationModes {
         )
       }else if (mode.Mode === "LM_ONED_FAST_SCAN") {
         return (
-          <div class="localization-options">
+          <div class="options">
             {this.renderSharedOneOptions(mode)}
             <div>
               <label>

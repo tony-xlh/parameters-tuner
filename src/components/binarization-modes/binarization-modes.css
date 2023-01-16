@@ -1,7 +1,8 @@
 :host {
   display: block;
+  --options-padding-left: 10px;
 }
 
-.binarization-options {
-  padding-left: 10px;
+.options {
+  padding-left: var(--options-padding-left);
 }

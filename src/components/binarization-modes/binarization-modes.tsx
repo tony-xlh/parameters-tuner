@@ -39,7 +39,7 @@ export class BinarizationModes {
     if (mode.Mode != "BM_SKIP") {
       if (mode.Mode === "BM_LOCAL_BLOCK") {
         return (
-          <div class="binarization-options">
+          <div class="options">
             <div>
               <label>
                 BlockSizeX
@@ -77,7 +77,7 @@ export class BinarizationModes {
         )
       }else{
         return (
-          <div class="binarization-options">
+          <div class="options">
             <div>
               <label>
                 BinarizationThreshold

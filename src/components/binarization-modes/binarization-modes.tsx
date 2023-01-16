@@ -165,7 +165,7 @@ export class BinarizationModes {
   render() {
     return (
       <Host>
-        <div>
+        <div part="container">
         {this.modes.map(mode => (
           this.renderOneMode(mode)
         ))}

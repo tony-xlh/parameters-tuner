@@ -153,7 +153,7 @@ export class BarcodeFormats {
   render() {
     return (
       <Host>
-        <div>
+        <div part="container">
           <div>
             <h2>1D</h2>
             {this.OneDBarcodeFormats.map(format => (

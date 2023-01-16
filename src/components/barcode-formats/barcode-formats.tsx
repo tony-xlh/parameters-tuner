@@ -72,10 +72,8 @@ export class BarcodeFormats {
   @Method()
   async loadSettings(settings:any) 
   {
-    let enabledFormats:string[] = settings.BarcodeFormatIds;
-    enabledFormats = enabledFormats.concat(settings.BarcodeFormatIds_2);
-    console.log(settings);
-    console.log(enabledFormats);
+    let enabledFormats:string[] = settings.BarcodeFormatIds ?? [];
+    enabledFormats = enabledFormats.concat(settings.BarcodeFormatIds_2 ?? []);
     for (let i = 0; i < this.formatsArray.length; i++) {
       const formats = this.formatsArray[i];
       for (let j = 0; j < formats.length; j++) {

@@ -23,7 +23,7 @@ export class LocalizationModes {
    */
   @Method()
   async loadSettings(settings:any) {
-    this.modes = settings.LocalizationModes;
+    this.modes = settings.LocalizationModes ?? [];
     const length = this.modes.length;
     if (length < 8) {
       for (let index = 0; index < 8 - length; index++) {

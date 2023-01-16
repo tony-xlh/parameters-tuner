@@ -131,7 +131,7 @@ export class BinarizationModes {
    */
   @Method()
   async loadSettings(settings:any) {
-    this.modes = settings.BinarizationModes;
+    this.modes = settings.BinarizationModes ?? [];
     const length = this.modes.length;
     if (length < 4) {
       for (let index = 0; index < 4 - length; index++) {

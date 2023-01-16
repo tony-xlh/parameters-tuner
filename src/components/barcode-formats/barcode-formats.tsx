@@ -1,5 +1,5 @@
 import { Component, Host, h, State, Method } from '@stencil/core';
-import { barcodeFormatOption, Enum1DBarcodeFormat, Enum2DBarcodeFormat, EnumBarcodeFormatCollection } from './definitions';
+import { barcodeFormatOption, Enum1DBarcodeFormat, Enum2DBarcodeFormat, EnumBarcodeFormatCollection, EnumOtherBarcodeFormat } from './definitions';
 
 @Component({
   tag: 'barcode-formats',
@@ -18,7 +18,7 @@ export class BarcodeFormats {
     this.OneDBarcodeFormats = this.getOneDBarcodeFormats();
     this.TwoDBarcodeFormats = this.getTwoDBarcodeFormats();
     this.OtherBarcodeFormats = this.getOtherBarcodeFormats();
-    this.formatsArray = [this.OneDBarcodeFormats,this.TwoDBarcodeFormats];
+    this.formatsArray = [this.OneDBarcodeFormats,this.TwoDBarcodeFormats,this.OtherBarcodeFormats];
   }
 
   componentDidLoad() {
@@ -27,6 +27,7 @@ export class BarcodeFormats {
 
   formatNameForRead(name:string){
     name = name.replace("BF_","");
+    name = name.replace("BF2_","");
     name = name.split("_").join(" ");
     return name;
   }
@@ -50,29 +51,31 @@ export class BarcodeFormats {
   }
 
   getOtherBarcodeFormats():barcodeFormatOption[] {
-    let formats:barcodeFormatOption[] = [];
-    return formats;
+    return this.getFormatOptions(EnumOtherBarcodeFormat);
   }
 
   updateFormatStatus(e:any,formatOption:barcodeFormatOption){
-    console.log(e.target.checked);
     formatOption.enabled = e.target.checked;
-    console.log(this.OneDBarcodeFormats);
-    console.log(this.TwoDBarcodeFormats);
   }
 
   /**
    * Update checked barcode formats with an object like the following:
    * {
    *   "BarcodeFormatIds": [
-   *     "BF_ALL"
-   *   ]
+   *     "BF_EAN_13"
+   *   ],
+   *   "BarcodeFormatIds_2": [
+   *     "BF2_POSTALCODE"
+   *   ],
    * }
    */
   @Method()
   async loadSettings(settings:any) 
   {
     let enabledFormats:string[] = settings.BarcodeFormatIds;
+    enabledFormats = enabledFormats.concat(settings.BarcodeFormatIds_2);
+    console.log(settings);
+    console.log(enabledFormats);
     for (let i = 0; i < this.formatsArray.length; i++) {
       const formats = this.formatsArray[i];
       for (let j = 0; j < formats.length; j++) {
@@ -89,21 +92,31 @@ export class BarcodeFormats {
       const collectionEnumValue = EnumBarcodeFormatCollection[enabledFormat];
       if (collectionEnumValue === EnumBarcodeFormatCollection[enabledFormat]) {
         if (collectionEnumValue === EnumBarcodeFormatCollection.BF_ALL) {
-          this.checkAllBarcodeFormats();
+          this.checkAllBarcodeFormats(false);
         }else if (collectionEnumValue === EnumBarcodeFormatCollection.BF_ONED) {
           this.checkAllOneDBarcodeFormats();
+        }else if (collectionEnumValue === EnumBarcodeFormatCollection.BF2_ALL) {
+          this.checkAllBarcodeFormats(true);
         }else if (collectionEnumValue === EnumBarcodeFormatCollection.BF_NULL) {
-          this.uncheckAllBarcodeFormats();
+          this.uncheckAllBarcodeFormats(false);
+        }else if (collectionEnumValue === EnumBarcodeFormatCollection.BF2_NULL) {
+          this.uncheckAllBarcodeFormats(true);
         }
       }
     }
     this.rerender = !this.rerender;
   }
 
-  checkAllBarcodeFormats(){
+  checkAllBarcodeFormats(other:boolean){
     for (let i = 0; i < this.formatsArray.length; i++) {
       const formats = this.formatsArray[i];
       for (let j = 0; j < formats.length; j++) {
+        if (other === false && i === 2) {
+          return;
+        }
+        if (other === true && i != 2) {
+          continue;
+        }
         const barcodeFormat = formats[j];
         barcodeFormat.enabled = true;
       }
@@ -117,10 +130,16 @@ export class BarcodeFormats {
     }
   }
 
-  uncheckAllBarcodeFormats(){
+  uncheckAllBarcodeFormats(other:boolean){
     for (let i = 0; i < this.formatsArray.length; i++) {
       const formats = this.formatsArray[i];
       for (let j = 0; j < formats.length; j++) {
+        if (other === false && i === 2) {
+          return;
+        }
+        if (other === true && i != 2) {
+          continue;
+        }
         const barcodeFormat = formats[j];
         barcodeFormat.enabled = false;
       }
@@ -131,19 +150,27 @@ export class BarcodeFormats {
    * Output checked barcode formats to an object like the following:
    * {
    *   "BarcodeFormatIds": [
-   *     "BF_ALL"
-   *   ]
+   *     "BF_EAN_13"
+   *   ],
+   *   "BarcodeFormatIds_2": [
+   *     "BF2_POSTALCODE"
+   *   ],
    * }
    */
   @Method()
   async outputSettings():Promise<any> {
-    let settings = {BarcodeFormatIds:[]};
+    let settings = {BarcodeFormatIds:[],BarcodeFormatIds_2:[]};
     for (let i = 0; i < this.formatsArray.length; i++) {
       const formats = this.formatsArray[i];
       for (let j = 0; j < formats.length; j++) {
         const format = formats[j];
         if (format.enabled) {
-          settings.BarcodeFormatIds.push(format.name);
+          if (i != 2) {
+            settings.BarcodeFormatIds.push(format.name);
+          }else{
+            settings.BarcodeFormatIds_2.push(format.name);
+          }
+          
         }
       }
     }
@@ -166,6 +193,15 @@ export class BarcodeFormats {
           <div>
             <h2>2D</h2>
             {this.TwoDBarcodeFormats.map(format => (
+              <div class="barcodeFormat">
+                <input type="checkbox" id={format.name} name={format.name} checked={format.enabled} onChange={(e:any) => (this.updateFormatStatus(e,format))}/>
+                <label htmlFor={format.name}>{this.formatNameForRead(format.name)}</label>
+              </div>
+            ))}
+          </div>
+          <div>
+            <h2>Other</h2>
+            {this.OtherBarcodeFormats.map(format => (
               <div class="barcodeFormat">
                 <input type="checkbox" id={format.name} name={format.name} checked={format.enabled} onChange={(e:any) => (this.updateFormatStatus(e,format))}/>
                 <label htmlFor={format.name}>{this.formatNameForRead(format.name)}</label>

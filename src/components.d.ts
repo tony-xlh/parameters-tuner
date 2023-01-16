@@ -10,11 +10,11 @@ import { LocalizationMode } from "./components/localization-modes/definitions";
 export namespace Components {
     interface BarcodeFormats {
         /**
-          * Update checked barcode formats with an object like the following: {   "BarcodeFormatIds": [     "BF_ALL"   ] }
+          * Update checked barcode formats with an object like the following: {   "BarcodeFormatIds": [     "BF_EAN_13"   ],   "BarcodeFormatIds_2": [     "BF2_POSTALCODE"   ], }
          */
         "loadSettings": (settings: any) => Promise<void>;
         /**
-          * Output checked barcode formats to an object like the following: {   "BarcodeFormatIds": [     "BF_ALL"   ] }
+          * Output checked barcode formats to an object like the following: {   "BarcodeFormatIds": [     "BF_EAN_13"   ],   "BarcodeFormatIds_2": [     "BF2_POSTALCODE"   ], }
          */
         "outputSettings": () => Promise<any>;
     }

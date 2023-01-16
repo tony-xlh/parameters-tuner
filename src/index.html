@@ -181,6 +181,9 @@
       "BF_QR_CODE",
       "BF_MICRO_QR"
     ],
+    "BarcodeFormatIds_2": [
+      "BF2_POSTALCODE"
+    ],
     "ExpectedBarcodesCount": 999,
     "ImagePreprocessingModes": [
       {
@@ -250,6 +253,7 @@
         let binarizationModesOutput = await binarizationModes.outputSettings();
         let localizationModesOutput = await localizationModes.outputSettings();
         settings.ImageParameter.BarcodeFormatIds = formatOutput.BarcodeFormatIds;
+        settings.ImageParameter.BarcodeFormatIds_2 = formatOutput.BarcodeFormatIds_2;
         settings.ImageParameter.BinarizationModes = binarizationModesOutput.BinarizationModes;
         settings.ImageParameter.LocalizationModes = localizationModesOutput.LocalizationModes;
         textarea.value = JSON.stringify(settings, undefined, 2);

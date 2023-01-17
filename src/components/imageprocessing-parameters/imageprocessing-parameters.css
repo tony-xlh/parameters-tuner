@@ -5,3 +5,11 @@
 input {
   max-width: 75px;
 }
+
+.modes {
+  padding-left: 10px;
+}
+
+.arguments {
+  padding-left: 10px;
+}

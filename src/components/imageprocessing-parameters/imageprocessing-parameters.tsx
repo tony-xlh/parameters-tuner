@@ -113,11 +113,11 @@ export class ImageprocessingParameters {
     let modeDef = this.getModeDef(paramDef,mode.Mode);
     if (modeDef) {
       return (
-        <Fragment>
+        <div class="arguments">
           {modeDef.args.map(arg => (
             this.renderArgument(mode,arg,paramDef)
           ))}
-        </Fragment>
+        </div>
       );
     }else{
       return "";
@@ -177,7 +177,7 @@ export class ImageprocessingParameters {
     let paramDef = this.getParametertDef(paraName);
     this.AddSkip(param,paramDef);
     return (
-      <div>
+      <div class="modes">
         {param.map(mode => (
           this.renderOneMode(mode,paramDef)
         ))}

@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ImageprocessingParameterDef } from "./components/imageprocessing-parameters/definition";
 export namespace Components {
     interface BarcodeFormats {
         /**
@@ -17,6 +18,7 @@ export namespace Components {
         "outputSettings": () => Promise<any>;
     }
     interface ImageprocessingParameters {
+        "loadExternalDefinition": (defs: ImageprocessingParameterDef[]) => Promise<void>;
         "loadSettings": (params: any) => Promise<void>;
         "outputSettings": () => Promise<{}>;
     }

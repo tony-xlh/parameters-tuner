@@ -36,6 +36,11 @@ export class ImageprocessingParameters {
   }
 
   @Method()
+  loadExternalDefinition(defs:ImageprocessingParameterDef[]){
+    this.parametersDefinitions = defs;
+  }
+
+  @Method()
   async loadSettings(params:any){
     this.modifiedParams = {};
     let paramsCopy = JSON.parse(JSON.stringify(params));

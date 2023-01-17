@@ -224,6 +224,7 @@ export class ImageprocessingParameters {
     for (let param in this.parameters) {
       paramNames.push(param);
     }
+    paramNames.sort();
     return (
       <div class="params">
         {paramNames.map(paraName => (

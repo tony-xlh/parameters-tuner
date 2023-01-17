@@ -18,7 +18,7 @@ export namespace Components {
     }
     interface ImageprocessingParameters {
         "loadSettings": (params: any) => Promise<void>;
-        "outputSettings": () => Promise<any>;
+        "outputSettings": () => Promise<{}>;
     }
 }
 declare global {

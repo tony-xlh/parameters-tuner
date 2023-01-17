@@ -11,7 +11,7 @@ export class ImageprocessingParameters {
   @State() rerender: boolean = false;
   @State() parameters:any = {};
   parametersDefinitions:ImageprocessingParameterDef[] = [];
-
+  modifiedParams:{} = {};
   /**
    * JSON Example
    * {
@@ -37,6 +37,7 @@ export class ImageprocessingParameters {
 
   @Method()
   async loadSettings(params:any){
+    this.modifiedParams = {};
     let paramsCopy = JSON.parse(JSON.stringify(params));
     let parametersNotSupported = [];
     for (let param in paramsCopy) {
@@ -64,24 +65,36 @@ export class ImageprocessingParameters {
     }
   }
 
-  @Method()
-  async outputSettings(){
-    for (let key in this.parameters) {
-      let param = this.parameters[key];
-      this.RemoveSkip(param);
-    }
-    return this.parameters;
+  dataModified(paramDef:ImageprocessingParameterDef){
+    this.modifiedParams[paramDef.name] = true;
+    this.rerender = !this.rerender;
   }
 
-  renderArgument(mode:any,arg:ModeArgumentDef){
+  @Method()
+  async outputSettings(){
+    let paramsCopy = JSON.parse(JSON.stringify(this.parameters));
+    for (let key in paramsCopy) {
+      let param = paramsCopy[key];
+      this.RemoveSkip(param);
+    }
+    let paramsModified = {};
+    for (let key in paramsCopy) {
+      if (this.modifiedParams[key] === true)  {
+        paramsModified[key] = paramsCopy[key];
+      }
+    }
+    return paramsModified;
+  }
+
+  renderArgument(mode:any,arg:ModeArgumentDef,paramDef:ImageprocessingParameterDef){
     if (arg.type === "number") {
       return (
         <div>
           <label>
             {arg.name}
           </label>
-          <input onChange={(event)=>this.handleArgument(event,arg,mode)} type="range" min={arg.min ?? 0} max={arg.max ?? 1000} step="1" value={mode[arg.name] ?? arg.default}/>
-          <input onChange={(event)=>this.handleArgument(event,arg,mode)} type="number" min={arg.min ?? 0} max={arg.max ?? 1000} value={mode[arg.name] ?? arg.default}></input>
+          <input onChange={(event)=>this.handleArgument(event,arg,mode,paramDef)} type="range" min={arg.min ?? 0} max={arg.max ?? 1000} step="1" value={mode[arg.name] ?? arg.default}/>
+          <input onChange={(event)=>this.handleArgument(event,arg,mode,paramDef)} type="number" min={arg.min ?? 0} max={arg.max ?? 1000} value={mode[arg.name] ?? arg.default}></input>
         </div>
       );
     }else if (arg.type === "boolean"){
@@ -90,7 +103,7 @@ export class ImageprocessingParameters {
           <label>
             {arg.name}
           </label>
-          <input onChange={(event)=>this.handleArgument(event,arg,mode)} type="checkbox" checked={((mode[arg.name] ?? arg.default) === 0) ? false:true}></input>
+          <input onChange={(event)=>this.handleArgument(event,arg,mode,paramDef)} type="checkbox" checked={((mode[arg.name] ?? arg.default) === 0) ? false:true}></input>
         </div>
       );
     }
@@ -102,7 +115,7 @@ export class ImageprocessingParameters {
       return (
         <Fragment>
           {modeDef.args.map(arg => (
-            this.renderArgument(mode,arg)
+            this.renderArgument(mode,arg,paramDef)
           ))}
         </Fragment>
       );
@@ -133,10 +146,10 @@ export class ImageprocessingParameters {
       delete mode[key];
     }
 
-    this.rerender = !this.rerender;
+    this.dataModified(paramDef);
   }
 
-  handleArgument(event:any,arg:ModeArgumentDef,mode:any) {
+  handleArgument(event:any,arg:ModeArgumentDef,mode:any,paramDef:ImageprocessingParameterDef) {
     let target = event.target;
     let value = parseInt(target.value);
     if (arg.type === "boolean") {
@@ -144,7 +157,7 @@ export class ImageprocessingParameters {
     }else{
       mode[arg.name] = value;
     }
-    this.rerender = !this.rerender;
+    this.dataModified(paramDef);
   }
 
   renderOneMode(mode:any,paramDef:ImageprocessingParameterDef){

@@ -58,6 +58,66 @@
             }
           ]}
       ]
+    },
+    {
+      "name":"LocalizationModes",
+      "length":8,
+      "skipName":"LM_SKIP",
+      "modes":[
+        {"name":"LM_SKIP","args":[]},
+        {"name":"LM_CONNECTED_BLOCKS","args":[]},
+        {"name":"LM_ONED_FAST_SCAN","args":[
+          {
+            "name":"ScanStride",
+            "type":"number",
+            "max":999,
+            "min":0,
+            "default": 0
+          }, 
+          {
+            "name":"ScanDirection",
+            "type":"number",
+            "max":2,
+            "min":0,
+            "default": 0
+          },
+          {
+            "name":"ConfidenceThreshold",
+            "type":"number",
+            "max":100,
+            "min":0,
+            "default": 60
+          }
+        ]},
+        {"name":"LM_LINES","args":[]},
+        {"name":"LM_SCAN_DIRECTLY","args":[
+          {
+            "name":"ScanStride",
+            "type":"number",
+            "max":999,
+            "min":0,
+            "default": 0
+          }, 
+          {
+            "name":"ScanDirection",
+            "type":"number",
+            "max":2,
+            "min":0,
+            "default": 0
+          },
+          {
+            "name":"IsOneDStacked",
+            "type":"boolean",
+            "max":1,
+            "min":0,
+            "default": 0
+          }
+        ]},
+        {"name":"LM_STATISTICS","args":[]},
+        {"name":"LM_STATISTICS_MARKS","args":[]},
+        {"name":"LM_STATISTICS_POSTAL_CODE","args":[]},
+        {"name":"LM_CENTRE","args":[]}
+      ]
     }
   ]
 }

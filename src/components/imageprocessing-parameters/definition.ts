@@ -2,6 +2,7 @@
 export interface ImageprocessingParameterDef {
   name:string;
   modes:ModeDef[];
+  skipName:string;
   length:number;
 }
 

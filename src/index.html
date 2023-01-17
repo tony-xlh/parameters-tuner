@@ -240,7 +240,9 @@
         const barcodeFormats = document.querySelector("barcode-formats");
         let formatOutput = await barcodeFormats.outputSettings();
         let params = await imageprocessingParameters.outputSettings();
-        settings.ImageParameter = params;
+        for (let key in params) {
+          settings.ImageParameter[key] = params[key];
+        }
         settings.ImageParameter.BarcodeFormatIds = formatOutput.BarcodeFormatIds;
         settings.ImageParameter.BarcodeFormatIds_2 = formatOutput.BarcodeFormatIds_2;
         textarea.value = JSON.stringify(settings, undefined, 2);

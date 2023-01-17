@@ -3,6 +3,7 @@
     {
       "name":"BinarizationModes",
       "length":4,
+      "skipName":"BM_SKIP",
       "modes":[
           {"name":"BM_SKIP","args":[]},
           {"name":"BM_THRESHOLD","args":[

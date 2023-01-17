@@ -37,11 +37,24 @@ export class ImageprocessingParameters {
 
   @Method()
   async loadSettings(params:any){
-    this.parameters = params;
+    this.parameters = JSON.parse(JSON.stringify(params));
+    let parametersNotSupported = [];
+    for (let param in this.parameters) {
+      if (!this.getParametertDef(param)) {
+        parametersNotSupported.push(param);
+      }
+    }
+    parametersNotSupported.forEach(param => {
+      delete this.parameters[param];
+    });
   }
 
   @Method()
   async outputSettings(){
+    for (let key in this.parameters) {
+      let param = this.parameters[key];
+      this.RemoveSkip(param);
+    }
     return this.parameters;
   }
 
@@ -132,7 +145,8 @@ export class ImageprocessingParameters {
   }
 
   renderParameter(param:any,paraName:string){
-    let paramDef = this.getPrametertDef(paraName);
+    let paramDef = this.getParametertDef(paraName);
+    this.AddSkip(param,paramDef);
     return (
       <div>
         {param.map(mode => (
@@ -142,7 +156,33 @@ export class ImageprocessingParameters {
     )
   }
 
-  getPrametertDef(parameterName:string){
+  AddSkip(param:any,paramDef:ImageprocessingParameterDef){
+    let diff = paramDef.length - param.length;
+    if (diff > 0) {
+      for (let index = 0; index < diff; index++) {
+        let mode = {Mode:paramDef.skipName};
+        param.push(mode);
+      }
+    }
+  }
+
+  RemoveSkip(param:any){
+    let skipRemoved = [];
+    for (let index = 0; index < param.length; index++) {
+      const mode = param[index];
+      if (mode.Mode.indexOf("SKIP") === -1) {
+        skipRemoved.push(mode);
+      }
+    }
+    while (param.length != 0) {
+      param.pop();
+    }
+    for (let index = 0; index < skipRemoved.length; index++) {
+      param.push(skipRemoved[index]);
+    }
+  }
+
+  getParametertDef(parameterName:string){
     let paramsDef = this.parametersDefinitions;
     for (let index = 0; index < paramsDef.length; index++) {
       if (paramsDef[index].name === parameterName) {
@@ -165,11 +205,8 @@ export class ImageprocessingParameters {
   renderParameters(){
     let paramNames = [];
     for (let param in this.parameters) {
-      if (this.getPrametertDef(param)) {
-        paramNames.push(param);
-      }
+      paramNames.push(param);
     }
-    console.log(paramNames);
     return (
       <div class="params">
         {paramNames.map(paraName => (

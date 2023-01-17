@@ -180,7 +180,7 @@ export class ImageprocessingParameters {
         param.push(mode);
       }
     }
-    this.rerender = !this.rerender;
+    //this.rerender = !this.rerender;
   }
 
   RemoveSkip(param:any){

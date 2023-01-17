@@ -83,8 +83,27 @@ export class ImageprocessingParameters {
     }
   }
 
-  handleSelect(event:any,mode:any){
+  handleSelect(event:any,paramName:string,mode:any){
     mode.Mode = event.target.value;
+    let args = this.getModeDef(paramName,mode.Mode).args;
+    let argNames = [];
+    for (let index = 0; index < args.length; index++) {
+      const arg = args[index];
+      argNames.push(arg.name);
+    }
+    let keysToDelete = [];
+    for (let key in mode) {
+      if (key != "Mode") {
+        if (argNames.indexOf(key) === -1) {
+          keysToDelete.push(key);
+        }
+      }
+    }
+
+    keysToDelete.forEach(key => {
+      delete mode[key];
+    });
+
     this.rerender = !this.rerender;
   }
 
@@ -105,7 +124,7 @@ export class ImageprocessingParameters {
     let def = this.getPrametertDef(paraName);
     return (
       <div>
-        <select onInput={(event) => this.handleSelect(event,mode)}>
+        <select onInput={(event) => this.handleSelect(event,paraName,mode)}>
         {def.modes.map(modeDef => (
           <option value={modeDef.name} selected={modeDef.name === mode.Mode}>{modeDef.name}</option>
         ))}

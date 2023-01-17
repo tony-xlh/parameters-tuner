@@ -62,14 +62,14 @@ export class ImageprocessingParameters {
           <label>
             {arg.name}
           </label>
-          <input data-key={arg.name} onChange={(event)=>this.handleArgument(event,arg,mode)} type="checkbox" checked={((mode[arg.name] ?? arg.default) === 0) ? false:true}></input>
+          <input onChange={(event)=>this.handleArgument(event,arg,mode)} type="checkbox" checked={((mode[arg.name] ?? arg.default) === 0) ? false:true}></input>
         </div>
       );
     }
   }
 
-  renderArguments(mode:any,paraName:string){
-    let modeDef = this.getModeDef(paraName,mode.Mode);
+  renderArguments(mode:any,paramDef:ImageprocessingParameterDef){
+    let modeDef = this.getModeDef(paramDef,mode.Mode);
     if (modeDef) {
       return (
         <Fragment>
@@ -83,9 +83,9 @@ export class ImageprocessingParameters {
     }
   }
 
-  handleSelect(event:any,paramName:string,mode:any){
+  handleSelect(event:any,paramDef:ImageprocessingParameterDef,mode:any){
     mode.Mode = event.target.value;
-    let args = this.getModeDef(paramName,mode.Mode).args;
+    let args = this.getModeDef(paramDef,mode.Mode).args;
     let argNames = [];
     for (let index = 0; index < args.length; index++) {
       const arg = args[index];
@@ -118,29 +118,25 @@ export class ImageprocessingParameters {
     this.rerender = !this.rerender;
   }
 
-  renderOneMode(mode:any,paraName:string){
-    console.log("render one mode");
-    console.log(mode);
-    let def = this.getPrametertDef(paraName);
+  renderOneMode(mode:any,paramDef:ImageprocessingParameterDef){
     return (
       <div>
-        <select onInput={(event) => this.handleSelect(event,paraName,mode)}>
-        {def.modes.map(modeDef => (
+        <select onInput={(event) => this.handleSelect(event,paramDef,mode)}>
+        {paramDef.modes.map(modeDef => (
           <option value={modeDef.name} selected={modeDef.name === mode.Mode}>{modeDef.name}</option>
         ))}
         </select>
-        {this.renderArguments(mode,paraName)}
+        {this.renderArguments(mode,paramDef)}
       </div>
     )
   }
 
   renderParameter(param:any,paraName:string){
-    console.log("renderParameter");
-    console.log(param);
+    let paramDef = this.getPrametertDef(paraName);
     return (
       <div>
         {param.map(mode => (
-          this.renderOneMode(mode,paraName)
+          this.renderOneMode(mode,paramDef)
         ))}
       </div>
     )
@@ -156,8 +152,7 @@ export class ImageprocessingParameters {
     return undefined;
   }
 
-  getModeDef(parameterName:string,modeName:string){
-    let paramDef = this.getPrametertDef(parameterName);
+  getModeDef(paramDef:ImageprocessingParameterDef,modeName:string){
     for (let index = 0; index < paramDef.modes.length; index++) {
       const mode = paramDef.modes[index];
       if (mode.name === modeName){

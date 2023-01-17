@@ -29,6 +29,8 @@ export namespace Components {
         "outputSettings": () => Promise<{ BinarizationModes: BinarizationMode[]; }>;
     }
     interface ImageprocessingParameters {
+        "loadSettings": (params: any) => Promise<void>;
+        "outputSettings": () => Promise<any>;
     }
     interface LocalizationModes {
         /**

@@ -21,7 +21,7 @@
               "default": -1
             }
           ]},
-          {"name":"BM_LOCALBLOCK","args":[
+          {"name":"BM_LOCAL_BLOCK","args":[
             {
               "name":"BlockSizeX",
               "type":"number",

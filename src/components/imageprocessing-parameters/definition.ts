@@ -1,15 +1,16 @@
-export interface ImageProcessingParameter {
+
+export interface ImageprocessingParameterDef {
   name:string;
-  modes:Mode[];
+  modes:ModeDef[];
   length:number;
 }
 
-export interface Mode {
+export interface ModeDef {
   name:"string";
-  args:ModeArgument[];
+  args:ModeArgumentDef[];
 }
 
-export interface ModeArgument {
+export interface ModeArgumentDef {
   name:string;
   type:"boolean"|"number";
   description?:string;

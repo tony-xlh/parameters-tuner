@@ -37,16 +37,31 @@ export class ImageprocessingParameters {
 
   @Method()
   async loadSettings(params:any){
-    this.parameters = JSON.parse(JSON.stringify(params));
+    let paramsCopy = JSON.parse(JSON.stringify(params));
     let parametersNotSupported = [];
-    for (let param in this.parameters) {
+    for (let param in paramsCopy) {
       if (!this.getParametertDef(param)) {
         parametersNotSupported.push(param);
       }
     }
     parametersNotSupported.forEach(param => {
-      delete this.parameters[param];
+      delete paramsCopy[param];
     });
+    this.addMissingSupportedParams(paramsCopy)
+    this.parameters = paramsCopy
+  }
+
+  addMissingSupportedParams(paramsCopy:any){
+    let paramNames = [];
+    for (let param in paramsCopy) {
+      paramNames.push(param);
+    }
+    for (let index = 0; index < this.parametersDefinitions.length; index++) {
+      const paramDef = this.parametersDefinitions[index];
+      if (paramNames.indexOf(paramDef.name) === -1) {
+        paramsCopy[paramDef.name] = [];
+      }
+    }
   }
 
   @Method()

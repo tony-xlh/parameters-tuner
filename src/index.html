@@ -245,6 +245,16 @@
         }
         settings.ImageParameter.BarcodeFormatIds = formatOutput.BarcodeFormatIds;
         settings.ImageParameter.BarcodeFormatIds_2 = formatOutput.BarcodeFormatIds_2;
+        //https://bobbyhadz.com/blog/javascript-sort-object-keys
+        let obj = settings.ImageParameter;
+        const sorted = Object.keys(obj)
+          .sort()
+          .reduce((accumulator, key) => {
+            accumulator[key] = obj[key];
+
+            return accumulator;
+        }, {});
+        settings.ImageParameter = sorted;
         textarea.value = JSON.stringify(settings, undefined, 2);
       }
 

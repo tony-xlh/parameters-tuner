@@ -113,9 +113,10 @@ export class ImageprocessingParameters {
       }
     }
 
-    keysToDelete.forEach(key => {
+    for (let index = 0; index < keysToDelete.length; index++) {
+      const key = keysToDelete[index];
       delete mode[key];
-    });
+    }
 
     this.rerender = !this.rerender;
   }
@@ -164,6 +165,7 @@ export class ImageprocessingParameters {
         param.push(mode);
       }
     }
+    this.rerender = !this.rerender;
   }
 
   RemoveSkip(param:any){

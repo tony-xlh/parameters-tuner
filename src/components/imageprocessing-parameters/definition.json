@@ -118,6 +118,37 @@
         {"name":"LM_STATISTICS_POSTAL_CODE","args":[]},
         {"name":"LM_CENTRE","args":[]}
       ]
+    },
+    {
+      "name":"ColourConversionModes",
+      "length":2,
+      "skipName":"CICM_SKIP",
+      "modes":[
+        {"name":"CICM_SKIP","args":[]},
+        {"name":"CICM_GENERAL","args":[
+          {
+            "name":"BlueChannelWeight",
+            "type":"number",
+            "max":1000,
+            "min":-1,
+            "default": -1
+          },
+          {
+            "name":"GreenChannelWeight",
+            "type":"number",
+            "max":1000,
+            "min":-1,
+            "default": -1
+          },
+          {
+            "name":"RedChannelWeight",
+            "type":"number",
+            "max":1000,
+            "min":-1,
+            "default": -1
+          }
+        ]}
+      ]
     }
   ]
 }

@@ -240,6 +240,73 @@
           }
         ]}
       ]
+    },
+    {
+      "name":"ImagePreprocessingModes",
+      "length":5,
+      "skipName":"IPM_SKIP",
+      "modes":[
+        {"name":"IPM_SKIP","args":[]},
+        {"name":"IPM_GENERAL","args":[]},
+        {"name":"IPM_GRAY_EQUALIZE","args":[
+            {
+              "name":"Sensitivity",
+              "type":"number",
+              "max":9,
+              "min":1,
+              "default": 5
+            }
+          ]
+        },
+        {"name":"IPM_GRAY_SMOOTH","args":[
+            {
+              "name":"SmoothBlockSizeX",
+              "type":"number",
+              "max":1000,
+              "min":3,
+              "default": 3
+            },
+            {
+              "name":"SmoothBlockSizeY",
+              "type":"number",
+              "max":1000,
+              "min":3,
+              "default": 3
+            }
+          ]
+        },
+        {"name":"IPM_SHARPEN_SMOOTH","args":[
+            {
+              "name":"SmoothBlockSizeX",
+              "type":"number",
+              "max":1000,
+              "min":3,
+              "default": 3
+            },
+            {
+              "name":"SmoothBlockSizeY",
+              "type":"number",
+              "max":1000,
+              "min":3,
+              "default": 3
+            },
+            {
+              "name":"SharpenBlockSizeX",
+              "type":"number",
+              "max":1000,
+              "min":3,
+              "default": 3
+            },
+            {
+              "name":"SharpenBlockSizeY",
+              "type":"number",
+              "max":1000,
+              "min":3,
+              "default": 3
+            }
+          ]
+        }
+      ]
     }
   ]
 }

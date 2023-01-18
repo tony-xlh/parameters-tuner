@@ -13,13 +13,11 @@ export class ParametersModes {
   parametersDefinitions:ImageprocessingParameterDef[] = [];
   modifiedParams:{} = {};
   componentWillLoad(){
-    console.log("will load");
     this.parametersDefinitions = definition.ImageProcessingParameters as ImageprocessingParameterDef[];
-    console.log(this.parametersDefinitions);
   }
 
   @Method()
-  loadExternalDefinition(defs:ImageprocessingParameterDef[]){
+  async loadExternalDefinition(defs:ImageprocessingParameterDef[]){
     this.parametersDefinitions = defs;
   }
 

@@ -14,7 +14,6 @@ export class BarcodeFormats {
   @State() rerender:boolean = false;
   formatsArray = [];
   componentWillLoad(){
-    console.log("will load");
     this.OneDBarcodeFormats = this.getOneDBarcodeFormats();
     this.TwoDBarcodeFormats = this.getTwoDBarcodeFormats();
     this.OtherBarcodeFormats = this.getOtherBarcodeFormats();

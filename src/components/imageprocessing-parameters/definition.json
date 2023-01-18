@@ -305,6 +305,36 @@
               "default": 3
             }
           ]
+        },
+        {"name":"IPM_MORPHOLOGY","args":
+          [
+            {
+              "name":"MorphShape",
+              "type":"string",
+              "options":["Rectangle","Cross","Ellipse"],
+              "default":"Rectangle"
+            },
+            {
+              "name":"MorphOperation",
+              "type":"string",
+              "options":["Erode","Dilate","Open","Close"],
+              "default":"Close"
+            },
+            {
+              "name":"MorphOperationKernelSizeX",
+              "type":"number",
+              "max":1000,
+              "min":0,
+              "default": 0
+            },
+            {
+              "name":"MorphOperationKernelSizeY",
+              "type":"number",
+              "max":1000,
+              "min":0,
+              "default": 0
+            }
+          ]
         }
       ]
     }

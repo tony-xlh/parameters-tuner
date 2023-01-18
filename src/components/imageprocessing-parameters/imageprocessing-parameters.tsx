@@ -111,6 +111,19 @@ export class ImageprocessingParameters {
           <input onChange={(event)=>this.handleArgument(event,arg,mode,paramDef)} type="checkbox" checked={((mode[arg.name] ?? arg.default) === 0) ? false:true}></input>
         </div>
       );
+    }else if (arg.type === "string"){
+      return (
+        <div>
+          <label>
+            {arg.name}
+          </label>
+          <select onChange={(event)=>this.handleArgument(event,arg,mode,paramDef)}>
+            {arg.options.map(option => (
+              <option value={option} selected={option === mode[arg.name]}>{option}</option>
+            ))}
+          </select>
+        </div>
+      );
     }
   }
 
@@ -159,8 +172,10 @@ export class ImageprocessingParameters {
     let value = parseInt(target.value);
     if (arg.type === "boolean") {
       mode[arg.name] = target.checked ? 1 : 0;;
-    }else{
+    }else if (arg.type === "number") {
       mode[arg.name] = value;
+    }else if (arg.type === "string") {
+      mode[arg.name] = event.target.selectedOptions[0].value;
     }
     this.dataModified(paramDef);
   }

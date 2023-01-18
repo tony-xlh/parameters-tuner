@@ -13,7 +13,8 @@ export interface ModeDef {
 
 export interface ModeArgumentDef {
   name:string;
-  type:"boolean"|"number";
+  type:"boolean"|"number"|"string";
+  options?:string[];
   description?:string;
   max?:number;
   min?:number;

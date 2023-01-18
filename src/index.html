@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
     <title>Stencil Component Starter</title>
-
+    <script type="text/javascript" src="https://unpkg.com/dynamsoft-javascript-barcode@9.2.13/dist/dbr.js"></script>
     <script type="module" src="/build/parameters-tuner.esm.js"></script>
     <script nomodule src="/build/parameters-tuner.js"></script>
     <style>
@@ -68,7 +68,7 @@
         height: 100%;
       }
 
-      .controls {
+      .right {
         position: absolute;
         width: calc(100% - 360px);
         height: 100%;
@@ -78,18 +78,44 @@
         background-color: #f1f1f1;
       }
 
-      .controls-wrapper {
+      .wrapper {
+        display: flex;
         margin: 10px;
         height: 100%;
       }
 
+      .controls {
+        height: 100%;
+        width: 300px;
+      }
+
+      .barcode-reader {
+        overflow: auto;
+      }
+
       textarea {
-        width: calc(50% - 10px);
+        width: calc(100% - 10px);
         height: calc(100% - 50px);
       }
 
       .options {
         padding: 10px;
+      }
+
+      #resultSVG {
+        max-height:200px
+      }
+
+      .barcode-polygon {
+        fill:rgba(85,240,40,0.4);
+        stroke:green;
+        stroke-width:5;
+      }
+      
+      .barcode-polygon:hover {
+        fill:rgba(85,240,40,0.6);
+        stroke:green;
+        stroke-width:5;
       }
     </style>
   </head>
@@ -114,17 +140,18 @@
           </parameters-modes>
         </div>
       </div>
-      <div class="controls">
-        <div class="controls-wrapper">
-          <div>
-            <button class="loadBtn">
-              Load
-            </button>
-            <button class="outputBtn">
-              Output
-            </button>
-          </div>
-          <textarea>
+      <div class="right">
+        <div class="wrapper">  
+          <div class="controls">
+            <div>
+              <button class="loadBtn">
+                Load
+              </button>
+              <button class="outputBtn">
+                Output
+              </button>
+            </div>
+            <textarea>
 {
   "ImageParameter" : {
     "BinarizationModes": [
@@ -196,11 +223,22 @@
   },
   "Version" : "3.0"
 }
-          </textarea>
+            </textarea>
+          </div>
+          <div class="barcode-reader">
+            <div>
+              Load local image:
+              <input type="file" id="barcodeFile" onchange="loadImageFromFile();" accept=".jpg,.jpeg,.png,.bmp" />
+              <button onclick="decode()">Decode</button>
+              <div id="status"></div>
+            </div>
+            <svg id="resultSVG" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>
+          </div>
         </div>
       </div>
     </div>
     <script>
+      let readerDBR;
       window.onload = function(){
         loadFromTemplate();
         document.getElementsByClassName("outputBtn")[0].addEventListener('click', async () => {
@@ -278,6 +316,120 @@
         tabContent[index].style.display = "block";
         evt.currentTarget.className += " active";
       }
+
+      function loadImageFromFile() { 
+        let files = document.getElementById('barcodeFile').files;
+        if (files.length == 0) {
+          return;
+        }
+        let file = files[0];
+        fileReader = new FileReader();
+        fileReader.onload = function(e){
+          loadImage(e.target.result);
+        };
+        fileReader.onerror = function () {
+          console.warn('oops, something went wrong.');
+        };
+        fileReader.readAsDataURL(file);
+      }
+
+      function loadImage(imgsrc){
+        if (imgsrc) {
+          img = new Image();
+          img.src = imgsrc;
+          img.onload = function(){
+            let svgElement = document.getElementById("resultSVG");
+            svgElement.innerHTML = "";
+            let svgImage = document.createElementNS("http://www.w3.org/2000/svg", "image");
+            svgImage.setAttribute("href",imgsrc);
+            svgElement.setAttribute("viewBox","0 0 "+img.width+" "+img.height);
+            svgElement.appendChild(svgImage);
+          }
+        }
+      }
+      async function initDBR(){
+        document.getElementById("status").innerText = "initializing...";
+        readerDBR = await Dynamsoft.DBR.BarcodeReader.createInstance();
+        document.getElementById("status").innerText = "";
+      }
+
+      async function decode(){
+        document.getElementById("status").innerText = "decoding...";
+        let wrappedResults;
+        if (!readerDBR) {
+          await initDBR();
+        }
+        await updateDBRRuntimeSettings();
+        let results = await readerDBR.decode(img);
+        wrappedResults = wrapResultsDBR(results);
+        console.log(wrappedResults);
+        overlayResults(wrappedResults);
+        document.getElementById("status").innerText = "";
+      }
+
+      async function updateDBRRuntimeSettings(){
+        let template = document.querySelector("textarea").value;
+        if (template) {
+          console.log("update runtime settings with template");
+          await readerDBR.initRuntimeSettingsWithString(template);
+        }else{
+          console.log("reset runtime settings");
+          await readerDBR.resetRuntimeSettings();
+        }
+      }
+
+      function wrapResultsDBR(results){
+        let wrappedResultArray = [];
+        for (let i = 0; i < results.length; i++) {
+          const result = results[i];
+          let wrappedResult = {};
+          wrappedResult.barcodeText = result.barcodeText;
+          wrappedResult.barcodeFormat = result.barcodeFormatString;
+          wrappedResult.points = [];
+          for (let j = 1; j <= 4; j++) {
+            let point = {};
+            point.x = result.localizationResult["x"+j];
+            point.y = result.localizationResult["y"+j];
+            wrappedResult.points.push(point);  
+          }
+          wrappedResultArray.push(wrappedResult);
+        }
+        return wrappedResultArray;
+      }
+
+      function overlayResults(results){
+        let svgElement = document.getElementById("resultSVG");
+        clearElements(svgElement,"polygon");
+        for (let i = 0; i < results.length; i++) {
+          const result = results[i];
+          let a = document.createElementNS("http://www.w3.org/2000/svg","a");
+          let polygon = document.createElementNS("http://www.w3.org/2000/svg","polygon");
+          polygon.setAttribute("points",getPointsAttributeFromArray(result.points));
+          polygon.setAttribute("class","barcode-polygon");
+          let title = document.createElementNS("http://www.w3.org/2000/svg","title");
+          title.textContent = result.barcodeFormat + ": " + result.barcodeText;
+          polygon.append(title);
+          a.append(polygon)
+          svgElement.append(a);
+        }
+      }
+
+      function getPointsAttributeFromArray(points) {
+        let value = "";
+        points.forEach(point => {
+          value = value + point.x + " " + point.y + " ";
+        });
+        return value.trim();
+      }
+
+      function clearElements(parent,tagName){
+        let elements=parent.getElementsByTagName(tagName);
+        while (elements.length>0){
+          let ele=elements[0];
+          ele.remove();
+        }
+      }
+
     </script>
   </body>
 </html>

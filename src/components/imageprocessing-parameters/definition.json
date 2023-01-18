@@ -149,6 +149,15 @@
           }
         ]}
       ]
+    },
+    {
+      "name":"DPMCodeReadingMode",
+      "length":2,
+      "skipName":"DPMCRM_SKIP",
+      "modes":[
+        {"name":"DPMCRM_SKIP","args":[]},
+        {"name":"DPMCRM_GENERAL","args":[]}
+      ]
     }
   ]
 }

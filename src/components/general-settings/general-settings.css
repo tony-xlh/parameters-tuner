@@ -1,3 +1,11 @@
 :host {
   display: block;
 }
+
+input {
+  max-width: 75px;
+}
+
+select {
+  max-width: 150px;
+}

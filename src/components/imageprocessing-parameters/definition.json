@@ -168,6 +168,61 @@
         {"name":"GTM_INVERTED","args":[]},
         {"name":"GTM_ORIGINAL","args":[]}
       ]
+    },
+    {
+      "name":"ScaleUpModes",
+      "length":4,
+      "skipName":"SUM_SKIP",
+      "modes":[
+        {"name":"SUM_SKIP","args":[]},
+        {"name":"SUM_AUTO","args":[]},
+        {"name":"SUM_LINEAR_INTERPOLATION","args":[
+          {
+            "name":"AcuteAngleWithXThreshold",
+            "type":"number",
+            "max":90,
+            "min":-1,
+            "default": -1
+          },
+          {
+            "name":"ModuleSizeThreshold",
+            "type":"number",
+            "max":999,
+            "min":0,
+            "default": 0
+          },
+          {
+            "name":"TargetModuleSize",
+            "type":"number",
+            "max":10,
+            "min":0,
+            "default": 0
+          }
+        ]},
+        {"name":"SUM_NEAREST_NEIGHBOUR_INTERPOLATION","args":[
+          {
+            "name":"AcuteAngleWithXThreshold",
+            "type":"number",
+            "max":90,
+            "min":-1,
+            "default": -1
+          },
+          {
+            "name":"ModuleSizeThreshold",
+            "type":"number",
+            "max":999,
+            "min":0,
+            "default": 0
+          },
+          {
+            "name":"TargetModuleSize",
+            "type":"number",
+            "max":10,
+            "min":0,
+            "default": 0
+          }
+        ]}
+      ]
     }
   ]
 }

@@ -151,7 +151,7 @@
       ]
     },
     {
-      "name":"DPMCodeReadingMode",
+      "name":"DPMCodeReadingModes",
       "length":2,
       "skipName":"DPMCRM_SKIP",
       "modes":[
@@ -160,7 +160,7 @@
       ]
     },
     {
-      "name":"GrayscaleTransformationMode",
+      "name":"GrayscaleTransformationModes",
       "length":2,
       "skipName":"GTM_SKIP",
       "modes":[

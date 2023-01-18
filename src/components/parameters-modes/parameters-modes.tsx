@@ -3,11 +3,11 @@ import { ImageprocessingParameterDef, ModeArgumentDef } from './definition';
 import definition from "./definition.json"
 
 @Component({
-  tag: 'imageprocessing-parameters',
-  styleUrl: 'imageprocessing-parameters.css',
+  tag: 'parameters-modes',
+  styleUrl: 'parameters-modes.css',
   shadow: true,
 })
-export class ImageprocessingParameters {
+export class ParametersModes {
   @State() rerender: boolean = false;
   @State() parameters:any = {};
   parametersDefinitions:ImageprocessingParameterDef[] = [];

@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ImageprocessingParameterDef } from "./components/imageprocessing-parameters/definition";
+import { ImageprocessingParameterDef } from "./components/parameters-modes/definition";
 export namespace Components {
     interface BarcodeFormats {
         /**
@@ -17,7 +17,7 @@ export namespace Components {
          */
         "outputSettings": () => Promise<any>;
     }
-    interface ImageprocessingParameters {
+    interface ParametersModes {
         "loadExternalDefinition": (defs: ImageprocessingParameterDef[]) => Promise<void>;
         "loadSettings": (params: any) => Promise<void>;
         "outputSettings": () => Promise<{}>;
@@ -30,25 +30,25 @@ declare global {
         prototype: HTMLBarcodeFormatsElement;
         new (): HTMLBarcodeFormatsElement;
     };
-    interface HTMLImageprocessingParametersElement extends Components.ImageprocessingParameters, HTMLStencilElement {
+    interface HTMLParametersModesElement extends Components.ParametersModes, HTMLStencilElement {
     }
-    var HTMLImageprocessingParametersElement: {
-        prototype: HTMLImageprocessingParametersElement;
-        new (): HTMLImageprocessingParametersElement;
+    var HTMLParametersModesElement: {
+        prototype: HTMLParametersModesElement;
+        new (): HTMLParametersModesElement;
     };
     interface HTMLElementTagNameMap {
         "barcode-formats": HTMLBarcodeFormatsElement;
-        "imageprocessing-parameters": HTMLImageprocessingParametersElement;
+        "parameters-modes": HTMLParametersModesElement;
     }
 }
 declare namespace LocalJSX {
     interface BarcodeFormats {
     }
-    interface ImageprocessingParameters {
+    interface ParametersModes {
     }
     interface IntrinsicElements {
         "barcode-formats": BarcodeFormats;
-        "imageprocessing-parameters": ImageprocessingParameters;
+        "parameters-modes": ParametersModes;
     }
 }
 export { LocalJSX as JSX };
@@ -56,7 +56,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "barcode-formats": LocalJSX.BarcodeFormats & JSXBase.HTMLAttributes<HTMLBarcodeFormatsElement>;
-            "imageprocessing-parameters": LocalJSX.ImageprocessingParameters & JSXBase.HTMLAttributes<HTMLImageprocessingParametersElement>;
+            "parameters-modes": LocalJSX.ParametersModes & JSXBase.HTMLAttributes<HTMLParametersModesElement>;
         }
     }
 }

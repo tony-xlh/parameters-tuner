@@ -337,6 +337,36 @@
           ]
         }
       ]
+    },
+    {
+      "name":"BarcodeComplementModes",
+      "length":2,
+      "skipName":"BCM_SKIP",
+      "modes":[
+        {"name":"BCM_SKIP","args":[]},
+        {"name":"BCM_GENERAL","args":[]}
+      ]
+    },
+    {
+      "name":"DeformationResistingModes",
+      "length":6,
+      "skipName":"DRM_SKIP",
+      "modes":[
+        {"name":"DRM_SKIP","args":[]},
+        {"name":"DRM_AUTO","args":[]},
+        {"name":"DRM_GENERAL","args":[
+          {
+            "name":"Level",
+            "type":"number",
+            "max":9,
+            "min":1,
+            "default": 5
+          }
+        ]},
+        {"name":"DRM_BROAD_WARP","args":[]},
+        {"name":"DRM_LOCAL_REFERENCE","args":[]},
+        {"name":"DRM_DEWRINKLE","args":[]}
+      ]
     }
   ]
 }

@@ -6,6 +6,10 @@ input {
   max-width: 75px;
 }
 
+select {
+  max-width: 150px;
+}
+
 .modes {
   padding-left: 10px;
 }

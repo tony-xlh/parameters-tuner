@@ -158,6 +158,16 @@
         {"name":"DPMCRM_SKIP","args":[]},
         {"name":"DPMCRM_GENERAL","args":[]}
       ]
+    },
+    {
+      "name":"GrayscaleTransformationMode",
+      "length":2,
+      "skipName":"GTM_SKIP",
+      "modes":[
+        {"name":"GTM_SKIP","args":[]},
+        {"name":"GTM_INVERTED","args":[]},
+        {"name":"GTM_ORIGINAL","args":[]}
+      ]
     }
   ]
 }

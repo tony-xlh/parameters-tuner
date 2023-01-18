@@ -1,7 +1,7 @@
 {
   "name": "parameters-tuner",
   "version": "0.0.1",
-  "description": "Stencil Component Starter",
+  "description": "Web components which make it easy to adjust the parameters of Dynamsoft Barcode Reader",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "es2015": "dist/esm/index.mjs",
@@ -12,7 +12,7 @@
   "unpkg": "dist/parameters-tuner/parameters-tuner.esm.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ionic-team/stencil-component-starter.git"
+    "url": "https://github.com/tony-xlh/parameters-tuner.git"
   },
   "files": [
     "dist/",
@@ -33,6 +33,17 @@
     "jest": "^27.4.5",
     "jest-cli": "^27.4.5",
     "puppeteer": "^10.0.0"
+  },
+  "keywords": [
+    "Dynamsoft",
+    "barcode",
+    "qrcode",
+    "parameter",
+    "WYSIWYG",
+    "tuner"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   },
   "license": "MIT"
 }

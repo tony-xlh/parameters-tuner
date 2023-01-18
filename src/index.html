@@ -20,6 +20,15 @@
         left: 0;
       }
 
+      .tabs.hidden {
+        width: 20px;
+      }
+
+      .tab-header {
+        display: flex;
+        align-items: center;
+      }
+
       /* Style the buttons that are used to open the tab content */
       .tab-button {
         background-color: inherit;
@@ -27,13 +36,14 @@
         border: none;
         outline: none;
         cursor: pointer;
-        padding: 10px;
+        padding: 14px;
         transition: 0.3s;
         white-space: nowrap;
       }
 
       .tab-buttons {
         display: flex;
+        align-items: center;
         height:46px;
         width: 100%;
         overflow-x: auto;
@@ -68,6 +78,14 @@
         height: 100%;
       }
 
+      .hide-button {
+        padding: 10px;
+      }
+
+      .hide-button:hover {
+        background-color: #ddd;
+      }
+
       .right {
         position: absolute;
         width: calc(100% - 360px);
@@ -76,6 +94,11 @@
         left: 360px;
         border: 1px solid #ccc;
         background-color: #f1f1f1;
+      }
+
+      .right.expanded {
+        left: 20px;
+        width: calc(100% - 20px);
       }
 
       .wrapper {
@@ -122,12 +145,17 @@
   <body>
     <div class="main">
       <div class="tabs">
-        <div class="tab-buttons">
-          <div class="tab-button active" onclick="switchTab(event,0)">
-            General
+        <div class="tab-header">
+          <div class="tab-buttons">
+            <div class="tab-button active" onclick="switchTab(event,0)">
+              General
+            </div>
+            <div class="tab-button" onclick="switchTab(event,1)">
+              Image Processings
+            </div>
           </div>
-          <div class="tab-button" onclick="switchTab(event,1)">
-            Image Processings
+          <div class="hide-button" onclick="toggleTabs()">
+            <
           </div>
         </div>
         <div class="tab-content" style="display:block;">
@@ -430,6 +458,19 @@
         }
       }
 
+      function toggleTabs(){
+        let hideButton = document.getElementsByClassName("hide-button")[0];
+
+        if (hideButton.innerText === "<") {
+          hideButton.innerText = ">";
+          document.getElementsByClassName("tabs")[0].className += " hidden";
+          document.getElementsByClassName("right")[0].className += " expanded";
+        } else {
+          hideButton.innerText = "<";
+          document.getElementsByClassName("tabs")[0].className = document.getElementsByClassName("tabs")[0].className.replace(" hidden", "");
+          document.getElementsByClassName("right")[0].className = document.getElementsByClassName("right")[0].className.replace(" expanded", "");
+        }
+      }
     </script>
   </body>
 </html>

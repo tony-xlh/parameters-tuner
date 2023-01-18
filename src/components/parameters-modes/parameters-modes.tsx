@@ -12,23 +12,6 @@ export class ParametersModes {
   @State() parameters:any = {};
   parametersDefinitions:ImageprocessingParameterDef[] = [];
   modifiedParams:{} = {};
-  /**
-   * JSON Example
-   * {
-   *   "ImageParameter" :{
-   *     "BinarizationModes": [
-   *        {
-   *           "Mode": "BM_LOCAL_BLOCK"
-   *        }
-   *      ],
-   *     "LocalizationModes": [
-   *       {
-   *         "Mode": "LM_CONNECTED_BLOCKS", 
-   *       }
-   *     ]
-   *   }
-   * }
-   */
   componentWillLoad(){
     console.log("will load");
     this.parametersDefinitions = definition.ImageProcessingParameters as ImageprocessingParameterDef[];

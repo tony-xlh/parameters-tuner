@@ -1,0 +1,45 @@
+{
+  "settings":
+  [
+    {
+      "name":"ExpectedBarcodesCount",
+      "templateStructureType":"ImageParameter",
+      "type":"number",
+      "max": 999,
+      "min": 0,
+      "default": 0
+    },
+    {
+      "name":"DeblurLevel",
+      "templateStructureType":"ImageParameter",
+      "type":"number",
+      "max": 9,
+      "min": 0,
+      "default": 9
+    },
+    {
+      "name":"Timeout",
+      "templateStructureType":"ImageParameter",
+      "type":"number",
+      "max": 99999,
+      "min": 0,
+      "default": 10000
+    },
+    {
+      "name":"ScaleDownThreshold",
+      "templateStructureType":"ImageParameter",
+      "type":"number",
+      "max": 99999,
+      "min": 8,
+      "default": 2300
+    },
+    {
+      "name":"MinResultConfidence",
+      "templateStructureType":"FormatSpecification",
+      "type":"number",
+      "max": 100,
+      "min": 0,
+      "default": 30
+    }
+  ]
+}

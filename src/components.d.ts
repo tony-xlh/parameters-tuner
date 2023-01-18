@@ -17,6 +17,10 @@ export namespace Components {
          */
         "outputSettings": () => Promise<any>;
     }
+    interface GeneralSettings {
+        "loadSettings": (settings: any) => Promise<void>;
+        "outputSettings": () => Promise<any>;
+    }
     interface ParametersModes {
         "loadExternalDefinition": (defs: ImageprocessingParameterDef[]) => Promise<void>;
         "loadSettings": (params: any) => Promise<void>;
@@ -30,6 +34,12 @@ declare global {
         prototype: HTMLBarcodeFormatsElement;
         new (): HTMLBarcodeFormatsElement;
     };
+    interface HTMLGeneralSettingsElement extends Components.GeneralSettings, HTMLStencilElement {
+    }
+    var HTMLGeneralSettingsElement: {
+        prototype: HTMLGeneralSettingsElement;
+        new (): HTMLGeneralSettingsElement;
+    };
     interface HTMLParametersModesElement extends Components.ParametersModes, HTMLStencilElement {
     }
     var HTMLParametersModesElement: {
@@ -38,16 +48,20 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "barcode-formats": HTMLBarcodeFormatsElement;
+        "general-settings": HTMLGeneralSettingsElement;
         "parameters-modes": HTMLParametersModesElement;
     }
 }
 declare namespace LocalJSX {
     interface BarcodeFormats {
     }
+    interface GeneralSettings {
+    }
     interface ParametersModes {
     }
     interface IntrinsicElements {
         "barcode-formats": BarcodeFormats;
+        "general-settings": GeneralSettings;
         "parameters-modes": ParametersModes;
     }
 }
@@ -56,6 +70,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "barcode-formats": LocalJSX.BarcodeFormats & JSXBase.HTMLAttributes<HTMLBarcodeFormatsElement>;
+            "general-settings": LocalJSX.GeneralSettings & JSXBase.HTMLAttributes<HTMLGeneralSettingsElement>;
             "parameters-modes": LocalJSX.ParametersModes & JSXBase.HTMLAttributes<HTMLParametersModesElement>;
         }
     }

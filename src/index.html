@@ -98,25 +98,20 @@
       <div class="tabs">
         <div class="tab-buttons">
           <div class="tab-button active" onclick="switchTab(event,0)">
-            Barcode Formats
+            General
           </div>
           <div class="tab-button" onclick="switchTab(event,1)">
             Image Processings
           </div>
-          <div class="tab-button" onclick="switchTab(event,2)">
-            General
-          </div>
         </div>
-        <div class="tab-content" style="display:block">
+        <div class="tab-content" style="display:block;">
           <barcode-formats>
           </barcode-formats>
+          <general-settings></general-settings>
         </div>
         <div class="tab-content">
           <parameters-modes>
           </parameters-modes>
-        </div>
-        <div class="tab-content">
-          <p>General</p>
         </div>
       </div>
       <div class="controls">
@@ -223,8 +218,10 @@
           template = "{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_QR_CODE\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}";
         }
         let settings = JSON.parse(template);
+        const generalSettings = document.querySelector("general-settings");
         const parametersModes = document.querySelector("parameters-modes");
         const barcodeFormats = document.querySelector("barcode-formats");
+        generalSettings.loadSettings(settings);
         barcodeFormats.loadSettings(settings.ImageParameter);
         parametersModes.loadSettings(settings.ImageParameter);
       }
@@ -236,8 +233,11 @@
           template = "{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_QR_CODE\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}";
         }
         let settings = JSON.parse(template);
+        const generalSettings = document.querySelector("general-settings");
         const parametersModes = document.querySelector("parameters-modes");
         const barcodeFormats = document.querySelector("barcode-formats");
+        let generalOutput = await generalSettings.outputSettings();
+        settings = generalOutput;
         let formatOutput = await barcodeFormats.outputSettings();
         let params = await parametersModes.outputSettings();
         for (let key in params) {

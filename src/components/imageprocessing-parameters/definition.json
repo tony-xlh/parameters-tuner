@@ -223,6 +223,23 @@
           }
         ]}
       ]
+    },
+    {
+      "name":"TextureDetectionModes",
+      "length":2,
+      "skipName":"TDM_SKIP",
+      "modes":[
+        {"name":"TDM_SKIP","args":[]},
+        {"name":"TDM_GENERAL_WIDTH_CONCENTRATION","args":[
+          {
+            "name":"Sensitivity",
+            "type":"number",
+            "max":9,
+            "min":1,
+            "default": 5
+          }
+        ]}
+      ]
     }
   ]
 }

@@ -282,7 +282,7 @@
               <input type="file" id="barcodeFile" onchange="loadImageFromFile();" accept=".jpg,.jpeg,.png,.bmp" />
             </div>
             <div>
-              <button onclick="decode()">Decode</button>
+              <button onclick="decodeImg()">Decode</button>
               <button onclick="livescan()">Live Scan</button>
             </div>
             <div id="status"></div>
@@ -415,7 +415,7 @@
         document.getElementById("status").innerText = "";
       }
 
-      async function decode(){
+      async function decodeImg(){
         document.getElementById("status").innerText = "decoding...";
         let wrappedResults;
         if (!readerDBR) {

@@ -7,6 +7,10 @@
     <script type="text/javascript" src="https://unpkg.com/dynamsoft-javascript-barcode@9.2.13/dist/dbr.js"></script>
     <script type="module" src="/build/parameters-tuner.esm.js"></script>
     <script nomodule src="/build/parameters-tuner.js"></script>
+    <script type="module">
+      import { defineCustomElements as defineCameraPreview } from 'https://cdn.jsdelivr.net/npm/camera-preview-component/dist/esm/loader.js';
+      defineCameraPreview();
+    </script>
     <style>
       /* Style the tab */
       .tabs {
@@ -140,6 +144,25 @@
         stroke:green;
         stroke-width:5;
       }
+
+      camera-preview {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        display: none;
+      }
+
+      camera-preview.active {
+        display: block;
+      }
+
+      #closeBtn {
+        position:absolute;
+        right:0;
+        top:0;
+      }
     </style>
   </head>
   <body>
@@ -257,16 +280,24 @@
             <div>
               Load local image:
               <input type="file" id="barcodeFile" onchange="loadImageFromFile();" accept=".jpg,.jpeg,.png,.bmp" />
-              <button onclick="decode()">Decode</button>
-              <div id="status"></div>
             </div>
+            <div>
+              <button onclick="decode()">Decode</button>
+              <button onclick="livescan()">Live Scan</button>
+            </div>
+            <div id="status"></div>
             <svg id="resultSVG" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>
           </div>
         </div>
       </div>
+      <camera-preview>
+        <button id="closeBtn">Close</button>
+      </camera-preview>
     </div>
     <script>
+      let decoding = false;
       let readerDBR;
+      let interval;
       window.onload = function(){
         loadFromTemplate();
         document.getElementsByClassName("outputBtn")[0].addEventListener('click', async () => {
@@ -275,6 +306,9 @@
         document.getElementsByClassName("loadBtn")[0].addEventListener('click', async () => {
           loadFromTemplate();
         });
+        document.getElementById("closeBtn").addEventListener("click",function(){
+          closeCamera();
+        })
       }
 
       function loadFromTemplate(){
@@ -470,6 +504,79 @@
           document.getElementsByClassName("tabs")[0].className = document.getElementsByClassName("tabs")[0].className.replace(" hidden", "");
           document.getElementsByClassName("right")[0].className = document.getElementsByClassName("right")[0].className.replace(" expanded", "");
         }
+      }
+
+      async function livescan(){
+        if (!readerDBR) {
+          await initDBR();
+        }
+        await updateDBRRuntimeSettings();
+        const cameraElement = document.querySelector('camera-preview');
+        const onOpened = () => {
+          cameraElement.className += " active";
+          console.log("opened");
+          startDecoding();
+        }
+        const onClosed = () => {
+          cameraElement.className = cameraElement.className.replace(" active", "");
+          console.log("closed");
+          stopDecoding();
+        }
+        cameraElement.addEventListener("opened",onOpened);
+        cameraElement.addEventListener("closed",onClosed);
+        cameraElement.drawOverlay = true;
+        cameraElement.desiredCamera = "founder";
+        cameraElement.facingMode = "environment";
+        cameraElement.active = true;
+        cameraElement.desiredResolution = {width:1280,height:720};
+      }
+
+      function closeCamera(){
+        const cameraElement = document.querySelector('camera-preview');
+        cameraElement.active = false;
+      }
+
+      function startDecoding(){
+        stopDecoding();
+        //1000/25=40
+        interval = setInterval(decode, 40);
+      }
+
+      function stopDecoding(){
+        clearInterval(interval);
+      }
+
+      async function decode(){
+        if (decoding === false && readerDBR) {
+          console.log("decoding");
+          const cameraElement = document.querySelector('camera-preview');
+          const video = await cameraElement.getVideoElement();
+          decoding = true;
+          try {
+            var results = await readerDBR.decode(video);
+            await cameraElement.updateAnalysingResults(wrapResults(results));
+          } catch (error) {
+            console.log(error);
+          }
+          decoding = false;
+        }
+      }
+
+      function wrapResults(results){
+        let analysingResults = [];
+        for (let index = 0; index < results.length; index++) {
+          const result = results[index];
+          let analysingResult = {};
+          analysingResult.text = result.barcodeText;
+          analysingResult.localizationResult = [
+            {x:result.localizationResult.x1,y:result.localizationResult.y1},
+            {x:result.localizationResult.x2,y:result.localizationResult.y2},
+            {x:result.localizationResult.x3,y:result.localizationResult.y3},
+            {x:result.localizationResult.x4,y:result.localizationResult.y4}
+          ];
+          analysingResults.push(analysingResult)
+        }
+        return analysingResults;
       }
     </script>
   </body>

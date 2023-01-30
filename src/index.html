@@ -299,6 +299,24 @@
       let readerDBR;
       let interval;
       window.onload = function(){
+        const cameraElement = document.querySelector('camera-preview');
+        const onOpened = () => {
+          cameraElement.className += " active";
+          console.log("opened");
+          startDecoding();
+        }
+        const onClosed = () => {
+          cameraElement.className = cameraElement.className.replace(" active", "");
+          console.log("closed");
+          stopDecoding();
+        }
+        cameraElement.addEventListener("opened",onOpened);
+        cameraElement.addEventListener("closed",onClosed);
+        cameraElement.drawOverlay = true;
+        cameraElement.desiredCamera = "founder";
+        cameraElement.facingMode = "environment";
+        cameraElement.desiredResolution = {width:1280,height:720};
+        cameraElement.active = false;
         loadFromTemplate();
         document.getElementsByClassName("outputBtn")[0].addEventListener('click', async () => {
           outputTemplate();
@@ -512,22 +530,6 @@
         }
         await updateDBRRuntimeSettings();
         const cameraElement = document.querySelector('camera-preview');
-        const onOpened = () => {
-          cameraElement.className += " active";
-          console.log("opened");
-          startDecoding();
-        }
-        const onClosed = () => {
-          cameraElement.className = cameraElement.className.replace(" active", "");
-          console.log("closed");
-          stopDecoding();
-        }
-        cameraElement.addEventListener("opened",onOpened);
-        cameraElement.addEventListener("closed",onClosed);
-        cameraElement.drawOverlay = true;
-        cameraElement.desiredCamera = "founder";
-        cameraElement.facingMode = "environment";
-        cameraElement.desiredResolution = {width:1280,height:720};
         cameraElement.active = true;
       }
 

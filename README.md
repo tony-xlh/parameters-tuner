@@ -45,6 +45,20 @@ settings.ImageParameter.BarcodeFormatIds = formatOutput.BarcodeFormatIds;
 settings.ImageParameter.BarcodeFormatIds_2 = formatOutput.BarcodeFormatIds_2;
 ```
 
+Monitor changes made:
+
+```js
+const outputTemplate = () => {
+  //output the template
+}
+const generalSettings = document.querySelector("general-settings");
+const parametersModes = document.querySelector("parameters-modes");
+const barcodeFormats = document.querySelector("barcode-formats");
+generalSettings.addEventListener("updated",outputTemplate);
+parametersModes.addEventListener("updated",outputTemplate);
+barcodeFormats.addEventListener("updated",outputTemplate);
+```
+
 ## Install this component
 
 ### Script tag

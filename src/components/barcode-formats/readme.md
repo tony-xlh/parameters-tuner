@@ -5,6 +5,13 @@
 <!-- Auto Generated Below -->
 
 
+## Events
+
+| Event     | Description | Type                |
+| --------- | ----------- | ------------------- |
+| `updated` |             | `CustomEvent<void>` |
+
+
 ## Methods
 
 ### `loadSettings(settings: any) => Promise<void>`

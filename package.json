@@ -1,6 +1,6 @@
 {
   "name": "parameters-tuner",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Web components which make it easy to adjust the parameters of Dynamsoft Barcode Reader",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",

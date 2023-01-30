@@ -1,4 +1,4 @@
-import { Component, Host, h, Method, State } from '@stencil/core';
+import { Component, Host, h, Method, State, Event, EventEmitter } from '@stencil/core';
 import { settingDef } from './definition';
 import definition from './definition.json'
 
@@ -9,6 +9,7 @@ import definition from './definition.json'
   shadow: true,
 })
 export class GeneralSettings {
+  @Event() updated?: EventEmitter<void>;
   @State() rerender: boolean = false;
   settingDefinitions:settingDef[] = [];
   items:{} = {};
@@ -79,6 +80,9 @@ export class GeneralSettings {
 
   dataModified(){
     this.rerender = !this.rerender;
+    if (this.updated) {
+      this.updated.emit();
+    }
   }
 
   renderOneSetting(def:settingDef){

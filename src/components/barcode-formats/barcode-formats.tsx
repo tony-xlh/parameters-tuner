@@ -1,4 +1,4 @@
-import { Component, Host, h, State, Method } from '@stencil/core';
+import { Component, Host, h, State, Method, Event, EventEmitter } from '@stencil/core';
 import { barcodeFormatOption, Enum1DBarcodeFormat, Enum2DBarcodeFormat, EnumBarcodeFormatCollection, EnumOtherBarcodeFormat } from './definitions';
 
 @Component({
@@ -8,6 +8,7 @@ import { barcodeFormatOption, Enum1DBarcodeFormat, Enum2DBarcodeFormat, EnumBarc
 })
 
 export class BarcodeFormats {
+  @Event() updated?: EventEmitter<void>;
   @State() OneDBarcodeFormats: barcodeFormatOption[] = [];
   @State() TwoDBarcodeFormats: barcodeFormatOption[] = [];
   @State() OtherBarcodeFormats: barcodeFormatOption[] = [];
@@ -55,6 +56,9 @@ export class BarcodeFormats {
 
   updateFormatStatus(e:any,formatOption:barcodeFormatOption){
     formatOption.enabled = e.target.checked;
+    if (this.updated) {
+      this.updated.emit();
+    }
   }
 
   /**

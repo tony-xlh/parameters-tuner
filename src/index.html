@@ -327,6 +327,12 @@
         document.getElementById("closeBtn").addEventListener("click",function(){
           closeCamera();
         })
+        const generalSettings = document.querySelector("general-settings");
+        const parametersModes = document.querySelector("parameters-modes");
+        const barcodeFormats = document.querySelector("barcode-formats");
+        generalSettings.addEventListener("updated",outputTemplate);
+        parametersModes.addEventListener("updated",outputTemplate);
+        barcodeFormats.addEventListener("updated",outputTemplate);
       }
 
       function loadFromTemplate(){

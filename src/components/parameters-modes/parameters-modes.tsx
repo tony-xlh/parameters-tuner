@@ -1,4 +1,4 @@
-import { Component, Host, h, Method, Fragment, State } from '@stencil/core';
+import { Component, Host, h, Method, Fragment, State, Event, EventEmitter } from '@stencil/core';
 import { ImageprocessingParameterDef, ModeArgumentDef } from './definition';
 import definition from "./definition.json"
 
@@ -8,6 +8,7 @@ import definition from "./definition.json"
   shadow: true,
 })
 export class ParametersModes {
+  @Event() updated?: EventEmitter<void>;
   @State() rerender: boolean = false;
   @State() parameters:any = {};
   parametersDefinitions:ImageprocessingParameterDef[] = [];
@@ -54,6 +55,9 @@ export class ParametersModes {
   dataModified(paramDef:ImageprocessingParameterDef){
     this.modifiedParams[paramDef.name] = true;
     this.rerender = !this.rerender;
+    if (this.updated) {
+      this.updated.emit();
+    }
   }
 
   @Method()

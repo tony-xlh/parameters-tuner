@@ -27,6 +27,18 @@ export namespace Components {
         "outputSettings": () => Promise<{}>;
     }
 }
+export interface BarcodeFormatsCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLBarcodeFormatsElement;
+}
+export interface GeneralSettingsCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLGeneralSettingsElement;
+}
+export interface ParametersModesCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLParametersModesElement;
+}
 declare global {
     interface HTMLBarcodeFormatsElement extends Components.BarcodeFormats, HTMLStencilElement {
     }
@@ -54,10 +66,13 @@ declare global {
 }
 declare namespace LocalJSX {
     interface BarcodeFormats {
+        "onUpdated"?: (event: BarcodeFormatsCustomEvent<void>) => void;
     }
     interface GeneralSettings {
+        "onUpdated"?: (event: GeneralSettingsCustomEvent<void>) => void;
     }
     interface ParametersModes {
+        "onUpdated"?: (event: ParametersModesCustomEvent<void>) => void;
     }
     interface IntrinsicElements {
         "barcode-formats": BarcodeFormats;

@@ -444,6 +444,9 @@
         document.getElementById("status").innerText = "decoding...";
         let wrappedResults;
         if (!readerDBR) {
+          if (window.location.hostname.indexOf("dynamsoft") != -1) {
+            Dynamsoft.DBR.BarcodeReader.license = "DLS2eyJoYW5kc2hha2VDb2RlIjoiMTAwMjI3NzYzLXIxNjY2NTgwMzczIiwib3JnYW5pemF0aW9uSUQiOiIxMDAyMjc3NjMiLCJtYWluU2VydmVyVVJMIjoiaHR0cHM6Ly9tbHRzLmR5bmFtc29mdC5jb20vIiwic3RhbmRieVNlcnZlclVSTCI6Imh0dHBzOi8vc2x0cy5keW5hbXNvZnQuY29tLyIsImNoZWNrQ29kZSI6MjQwMjMzODYzfQ==";
+          }
           await initDBR();
         }
         await updateDBRRuntimeSettings();

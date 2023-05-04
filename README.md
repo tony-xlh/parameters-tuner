@@ -19,14 +19,16 @@ In your HTML, add the component:
 Load the settings from a JSON template:
 
 ```js
-let template = "{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_QR_CODE\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}";
-let settings = JSON.parse(template);
-const generalSettings = document.querySelector("general-settings");
-const parametersModes = document.querySelector("parameters-modes");
-const barcodeFormats = document.querySelector("barcode-formats");
-generalSettings.loadSettings(settings);
-barcodeFormats.loadSettings(settings.ImageParameter);
-parametersModes.loadSettings(settings.ImageParameter);
+window.onload = function() {
+  let template = "{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_QR_CODE\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}";
+  let settings = JSON.parse(template);
+  const generalSettings = document.querySelector("general-settings");
+  const parametersModes = document.querySelector("parameters-modes");
+  const barcodeFormats = document.querySelector("barcode-formats");
+  generalSettings.loadSettings(settings);
+  barcodeFormats.loadSettings(settings.ImageParameter);
+  parametersModes.loadSettings(settings.ImageParameter);
+}
 ```
 
 Output the settings modified with the components:
@@ -48,15 +50,15 @@ settings.ImageParameter.BarcodeFormatIds_2 = formatOutput.BarcodeFormatIds_2;
 Monitor changes made:
 
 ```js
-const outputTemplate = () => {
-  //output the template
+const updated = () => {
+  //Settings are updated.
 }
 const generalSettings = document.querySelector("general-settings");
 const parametersModes = document.querySelector("parameters-modes");
 const barcodeFormats = document.querySelector("barcode-formats");
-generalSettings.addEventListener("updated",outputTemplate);
-parametersModes.addEventListener("updated",outputTemplate);
-barcodeFormats.addEventListener("updated",outputTemplate);
+generalSettings.addEventListener("updated",updated);
+parametersModes.addEventListener("updated",updated);
+barcodeFormats.addEventListener("updated",updated);
 ```
 
 ## Install this component
